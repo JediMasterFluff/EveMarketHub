@@ -6,4 +6,40 @@
     android:layout_height="match_parent"
     tools:context="ca.prairesunapplications.evemarkethub.screens.ItemDetails">
 
+    <TextView
+        android:id="@+id/itemPriceView"
+        android:layout_width="105dp"
+        android:layout_height="93dp"
+        android:layout_margin="@dimen/app_side_padding"
+        android:clickable="false"
+        android:gravity="center"
+        android:inputType="none"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@string/item_details_default_price"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/itemHistoryGraph"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/graph_height"
+        android:layout_margin="@dimen/app_side_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/itemNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_side_padding"
+        android:clickable="false"
+        android:inputType="none"
+        android:lines="1"
+        android:text="@string/item_details_item_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

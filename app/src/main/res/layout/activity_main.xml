@@ -7,12 +7,13 @@
     tools:context="ca.prairesunapplications.evemarkethub.screens.MainActivity">
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/mainScreenSearch"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/app_side_padding"
         android:layout_marginStart="@dimen/app_side_padding"
-        android:background="@android:color/darker_gray"
+        android:background="@drawable/background"
+        android:onClick="sendMessage"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerView">
 
         <LinearLayout
+            android:id="@+id/mainScreenItemList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
@@ -49,6 +51,6 @@
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/mainScreenSearch" />
 
 </android.support.constraint.ConstraintLayout>
