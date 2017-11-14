@@ -42,4 +42,43 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_side_padding"
+        android:inputType="none"
+        android:lines="1"
+        android:text="@string/item_details_category_default"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
+        app:layout_constraintTop_toBottomOf="@+id/itemNameTitle" />
+
+    <TextView
+        android:id="@+id/itemDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/app_side_padding"
+        android:ellipsize="end"
+        android:inputType="none"
+        android:text="@string/item_details_descrip_default"
+        app:layout_constraintBottom_toBottomOf="@+id/itemPriceView"
+        app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
+        app:layout_constraintTop_toBottomOf="@+id/itemCategory" />
+
+    <LinearLayout
+        android:id="@+id/itemStationList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/app_side_padding"
+        android:background="@color/colorGraphBackground"
+        android:orientation="horizontal"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/itemHistoryGraph"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemPriceView"></LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
