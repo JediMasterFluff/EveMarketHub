@@ -12,18 +12,21 @@
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/app_side_padding"
         android:layout_marginStart="@dimen/app_side_padding"
+        android:layout_marginTop="@dimen/app_side_padding"
         android:background="@drawable/background"
         android:onClick="sendMessage"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="229dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="@dimen/app_side_padding"
         android:layout_marginEnd="@dimen/app_side_padding"
         android:layout_marginStart="@dimen/app_side_padding"
         android:background="@android:color/holo_blue_bright"
@@ -37,15 +40,22 @@
             android:id="@+id/mainScreenItemList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="sendMessage2"
+                android:text="Button" />
+        </LinearLayout>
     </ScrollView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="204dp"
-        android:layout_marginEnd="@dimen/app_side_padding"
-        android:layout_marginStart="@dimen/app_side_padding"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/app_side_padding"
         android:background="@android:color/holo_purple"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"

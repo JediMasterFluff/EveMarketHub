@@ -13,12 +13,15 @@ import ca.prairesunapplications.evemarkethub.R;
 
 public class ItemDetails extends AppCompatActivity {
 
-    TextView priceView = findViewById(R.id.itemPriceView);
+    private TextView priceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
+
+        priceView = findViewById(R.id.itemPriceView);
+
 
         GraphView graph = findViewById(R.id.itemHistoryGraph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{

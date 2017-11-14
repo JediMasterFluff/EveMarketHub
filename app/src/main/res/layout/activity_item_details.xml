@@ -68,17 +68,14 @@
         app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
         app:layout_constraintTop_toBottomOf="@+id/itemCategory" />
 
-    <LinearLayout
-        android:id="@+id/itemStationList"
+    <ListView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/app_side_padding"
-        android:background="@color/colorGraphBackground"
-        android:orientation="horizontal"
-        android:scrollbars="none"
+        android:clickable="false"
         app:layout_constraintBottom_toTopOf="@+id/itemHistoryGraph"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemPriceView"></LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemPriceView" />
 
 </android.support.constraint.ConstraintLayout>
