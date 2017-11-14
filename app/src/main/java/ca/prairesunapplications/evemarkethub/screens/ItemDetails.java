@@ -1,9 +1,8 @@
 package ca.prairesunapplications.evemarkethub.screens;
 
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -14,13 +13,15 @@ import ca.prairesunapplications.evemarkethub.R;
 
 public class ItemDetails extends AppCompatActivity {
 
+    TextView priceView = findViewById(R.id.itemPriceView);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
 
         GraphView graph = findViewById(R.id.itemHistoryGraph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),
@@ -38,9 +39,17 @@ public class ItemDetails extends AppCompatActivity {
         graph.setBackgroundColor(getResources().getColor(R.color.colorGraphBackground, getTheme()));
         graph.addSeries(series);
 
+        priceView.setTextColor(getTextColour(0));
+    }
 
-        TextView price = findViewById(R.id.itemPriceView);
-
-        price.setTextColor(getResources().getColor(R.color.colorNegativePriceDiff, getTheme()));
+    private int getTextColour(int newPrice) {
+        int oldPrice = Integer.parseInt((String) priceView.getText());
+        if (oldPrice > newPrice) {
+            return getResources().getColor(R.color.colorNegativePriceDiff, getTheme());
+        } else if (oldPrice < newPrice) {
+            return getResources().getColor(R.color.colorPositivePriceDiff, getTheme());
+        } else {
+            return getResources().getColor(R.color.colorNoPriceDiff, getTheme());
+        }
     }
 }
