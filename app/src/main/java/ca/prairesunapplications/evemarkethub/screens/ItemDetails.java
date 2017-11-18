@@ -42,14 +42,14 @@ public class ItemDetails extends AppCompatActivity {
         graph.setBackgroundColor(getResources().getColor(R.color.colorGraphBackground, getTheme()));
         graph.addSeries(series);
 
-        priceView.setTextColor(getTextColour(0));
+        priceView.setTextColor(getTextColour());
     }
 
-    private int getTextColour(int newPrice) {
+    private int getTextColour() {
         int oldPrice = Integer.parseInt((String) priceView.getText());
-        if (oldPrice > newPrice) {
+        if (oldPrice > 0) {
             return getResources().getColor(R.color.colorNegativePriceDiff, getTheme());
-        } else if (oldPrice < newPrice) {
+        } else if (oldPrice < 0) {
             return getResources().getColor(R.color.colorPositivePriceDiff, getTheme());
         } else {
             return getResources().getColor(R.color.colorNoPriceDiff, getTheme());
