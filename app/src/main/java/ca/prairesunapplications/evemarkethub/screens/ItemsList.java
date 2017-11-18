@@ -2,6 +2,7 @@ package ca.prairesunapplications.evemarkethub.screens;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import ca.prairesunapplications.evemarkethub.R;
 
