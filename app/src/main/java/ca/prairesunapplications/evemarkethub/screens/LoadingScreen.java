@@ -2,6 +2,7 @@ package ca.prairesunapplications.evemarkethub.screens;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ public class LoadingScreen extends AppCompatActivity implements LoadingTask.Load
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_loading_screen);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
 
-        new LoadingTask(new ProgressBar(this),null, this).execute();
+        new LoadingTask(progressBar,this, this).execute();
 
     }
 
@@ -32,6 +35,8 @@ public class LoadingScreen extends AppCompatActivity implements LoadingTask.Load
 
     @Override
     public void onTaskFinished() {
-
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

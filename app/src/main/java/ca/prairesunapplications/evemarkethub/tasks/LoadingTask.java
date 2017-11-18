@@ -1,13 +1,13 @@
 package ca.prairesunapplications.evemarkethub.tasks;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ProgressBar;
 
 import ca.prairesunapplications.evemarkethub.database.EveMarketDatabaseHandler;
+import ca.prairesunapplications.evemarkethub.database.LoadDb;
 
 /**
  * Created by fluffy on 18/11/17.
@@ -33,17 +33,32 @@ public class LoadingTask extends AsyncTask<String,Integer,Integer> {
     @Override
     protected Integer doInBackground(String... strings) {
         Log.i("EveMarketHub", "Starting task");
-        handler = new EveMarketDatabaseHandler(myContext);
-        SQLiteDatabase db = handler.getWritableDatabase();
-        return null;
+        if(resourcesExist()){
+            downloadResources();
+        }
+        return 1234;
     }
 
-    protected void onProgressUpdate() {
-        onProgressUpdate();
+    private void downloadResources() {
+        handler = new EveMarketDatabaseHandler(myContext);
+
+        new LoadDb(myContext, handler.getWritableDatabase());
+    }
+
+    private boolean resourcesExist() {
+        return true;
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... integers) {
+        super.onProgressUpdate(integers);
+        progressBar.setProgress(integers[0]);
     }
 
 
     protected void onPostExecute(Integer integer) {
         super.onPostExecute(integer);
+        finishedListener.onTaskFinished();
+
     }
 }

@@ -45,6 +45,7 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
     //Category Groups Table Column Names
     private static final String CATEGORY_GROUPS_GROUP_KEY = "group_id";
     private static final String CATEGORY_GROUPS_CATEGORY_KEY = "category_id";
+
     private final Context mycontext;
     private SQLiteDatabase db;
 
@@ -58,38 +59,43 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
      * Called only on first time creation, after that, onUpgrade needs to be used
      */
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        db = sqLiteDatabase;
         String CREATE_ITEMS_TABLE = "CREATE TABLE " + TABLE_ITEMS + "(" +
-                ITEMS_KEY_ID + "INTEGER PRIMARY KEY," +
-                ITEMS_KEY_NAME + "TEXT," +
-                ITEMS_KEY_DESC + "TEXT" + ")";
+                ITEMS_KEY_ID + " INTEGER PRIMARY KEY," +
+                ITEMS_KEY_NAME + " TEXT," +
+                ITEMS_KEY_DESC + " TEXT" + ")";
 
         String CREATE_GROUP_TABLE = "CREATE TABLE " + TABLE_GROUPS + "(" +
-                GROUPS_KEY_ID + "INTEGER PRIMARY KEY," +
-                GROUPS_KEY_NAME + "TEXT" + ")";
+                GROUPS_KEY_ID + " INTEGER PRIMARY KEY, " +
+                GROUPS_KEY_NAME + " TEXT" + ")";
 
         String CREATE_CATEGORY_TABLE = "CREATE TABLE " + TABLE_CATEGORIES + "(" +
-                CATEGORIES_KEY_ID + "INTEGER PRIMARY KEY," +
-                CATEGORIES_KEY_NAME + "TEXT" + ")";
+                CATEGORIES_KEY_ID + " INTEGER PRIMARY KEY, " +
+                CATEGORIES_KEY_NAME + " TEXT" + ")";
 
         String CREATE_MARKETING_PRICING_TABLE = "CREATE TABLE " + TABLE_MARKET_PRICE + "(" +
-                MARKET_PRICING_KEY_ID + "INTEGER PRIMARY KEY," +
-                MARKET_PRICING_KEY_PRICE + "INTEGER," +
-                MARKET_PRICING_KEY_AVERAGE + "INTEGER" + ")";
+                MARKET_PRICING_KEY_ID + " INTEGER PRIMARY KEY, " +
+                MARKET_PRICING_KEY_PRICE + " INTEGER, " +
+                MARKET_PRICING_KEY_AVERAGE + " INTEGER" + ")";
 
         String CREATE_PRICING_HISTORY_TABLE = "CREATE TABLE " + TABLE_PRICING_HISTORY + "(" +
-                PRICING_HISTORY_KEY_ID + "INTEGER PRIMARY KEY," +
-                PRICING_HISTORY_KEY_PRICE + "INTEGER," +
-                PRICING_HISTORY_KEY_UPDATED + "DATETIME" + ")";
+                PRICING_HISTORY_KEY_ID + " INTEGER PRIMARY KEY, " +
+                PRICING_HISTORY_KEY_PRICE + " INTEGER, " +
+                PRICING_HISTORY_KEY_UPDATED + " DATETIME" + ")";
 
         String CREATE_GROUP_ITEMS_TABLE = "CREATE TABLE " + TABLE_GROUP_ITEMS + "(" +
-                "ID PRIMARY KEY AUTOINCREMENT," +
-                GROUP_ITEMS_GROUP_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + ")," +
-                GROUP_ITEMS_ITEM_KEY + "INTEGER FOREIGN KEY REFERENCES" + TABLE_ITEMS + "(" + ITEMS_KEY_ID + "))";
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                GROUP_ITEMS_GROUP_KEY + " INTEGER, " +
+                GROUP_ITEMS_ITEM_KEY + " INTEGER, " +
+                "FOREIGN KEY ("+GROUP_ITEMS_GROUP_KEY+") REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "), " +
+                "FOREIGN KEY ("+GROUP_ITEMS_ITEM_KEY+") REFERENCES " + TABLE_ITEMS + "(" + ITEMS_KEY_ID + "))";
 
         String CREATE_CATEGORY_GROUPS_TABLE = "CREATE TABLE " + TABLE_CATEGORY_GROUPS + "(" +
-                "ID PRIMARY KEY AUTOINCREMENT," +
-                CATEGORY_GROUPS_CATEGORY_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_CATEGORIES + "(" + CATEGORIES_KEY_ID + ")," +
-                CATEGORY_GROUPS_GROUP_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "))";
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CATEGORY_GROUPS_CATEGORY_KEY + " INTEGER, " +
+                CATEGORY_GROUPS_GROUP_KEY + " INTEGER, " +
+                "FOREIGN KEY ("+CATEGORY_GROUPS_CATEGORY_KEY+") REFERENCES " + TABLE_CATEGORIES + "(" + CATEGORIES_KEY_ID + "), " +
+                "FOREIGN KEY ("+CATEGORY_GROUPS_GROUP_KEY+") REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "))";
 
         db.execSQL(CREATE_ITEMS_TABLE);
         db.execSQL(CREATE_GROUP_TABLE);
@@ -98,6 +104,8 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_PRICING_HISTORY_TABLE);
         db.execSQL(CREATE_GROUP_ITEMS_TABLE);
         db.execSQL(CREATE_CATEGORY_GROUPS_TABLE);
+
+        //new LoadDb(mycontext, db);
 
     }
 
@@ -114,14 +122,6 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
     @Override
     public synchronized void close() {
         super.close();
-    }
-
-    @Override
-    public void onOpen(SQLiteDatabase db) {
-
-        super.onOpen(db);
-
-        new LoadDb();
     }
 
     // When called, the app will call the EVE url to get the latest info on the provided item id
