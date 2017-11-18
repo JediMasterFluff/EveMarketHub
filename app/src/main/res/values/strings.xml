@@ -4,4 +4,8 @@
     <string name="item_details_default_price">0</string>
     <string name="item_details_category_default">Category</string>
     <string name="item_details_descrip_default">Item Description</string>
+
+    <string name="title_activity_loading_screen">LoadingScreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

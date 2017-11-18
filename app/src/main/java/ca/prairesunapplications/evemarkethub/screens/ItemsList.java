@@ -1,18 +1,7 @@
 package ca.prairesunapplications.evemarkethub.screens;
 
-import android.app.ActionBar;
-import android.app.ListActivity;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.SimpleCursorAdapter;
 
 import ca.prairesunapplications.evemarkethub.R;
 

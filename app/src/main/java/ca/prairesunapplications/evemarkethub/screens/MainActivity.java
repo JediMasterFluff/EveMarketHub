@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void sendMessage2(View view){
+    public void sendMessage2(View view) {
         Intent intent = new Intent(this, ItemsList.class);
         startActivity(intent);
     }

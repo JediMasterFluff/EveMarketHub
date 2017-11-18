@@ -17,4 +17,6 @@
     <color name="colorNoPriceDiff">#FFF</color>
 
     <color name="colorSearchBorder">#F7AD3D</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

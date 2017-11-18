@@ -9,14 +9,12 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import ca.prairesunapplications.evemarkethub.R;
-import database.EveMarketDatabaseHandler;
 
 /**
  * Created by fluffy on 13/11/17.
  */
 
 public class SearchAdapter extends CursorAdapter {
-
 
 
     public SearchAdapter(Context context, Cursor c, int flags) {
@@ -27,7 +25,7 @@ public class SearchAdapter extends CursorAdapter {
     // No data is set here, just initial creation
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(R.layout.item_search, viewGroup,false);
+        return LayoutInflater.from(context).inflate(R.layout.item_search, viewGroup, false);
     }
 
     // Binds data from task to each view
@@ -38,7 +36,7 @@ public class SearchAdapter extends CursorAdapter {
 
         // get data from cursor
         String itemName = cursor.getString(cursor.getColumnIndexOrThrow("name")); // change name to actual name of final column name
-        String itemDesc = cursor.getString(cursor.getColumnIndexOrThrow ("description")); // change description to name of final column name
+        String itemDesc = cursor.getString(cursor.getColumnIndexOrThrow("description")); // change description to name of final column name
 
         name.setText(itemName);
         desc.setText(itemDesc);

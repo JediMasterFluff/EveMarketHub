@@ -6,15 +6,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by fluffy on 16/11/17.
- *  Database helper class to handle initial database creation and load
+ * Database helper class to handle initial database creation and load
  */
 
 public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "evemarket";
-    private SQLiteDatabase db;
-
     //Table Names
     private static final String TABLE_ITEMS = "items";
     private static final String TABLE_GROUPS = "groups";
@@ -23,40 +21,32 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_PRICING_HISTORY = "pricing_history";
     private static final String TABLE_GROUP_ITEMS = "group_items";
     private static final String TABLE_CATEGORY_GROUPS = "category_groups";
-
-
     //Item Table Column Names
     private static final String ITEMS_KEY_ID = "type_id";
     private static final String ITEMS_KEY_NAME = "name";
     private static final String ITEMS_KEY_DESC = "description";
-
     //Groups Table Column Names
     private static final String GROUPS_KEY_ID = "group_id";
     private static final String GROUPS_KEY_NAME = "name";
-
     //Category Table Column Names
     private static final String CATEGORIES_KEY_ID = "category_id";
     private static final String CATEGORIES_KEY_NAME = "name";
-
     //Market Price Table Column Names
     private static final String MARKET_PRICING_KEY_ID = "type_id";
     private static final String MARKET_PRICING_KEY_AVERAGE = "average_price";
     private static final String MARKET_PRICING_KEY_PRICE = "adjusted_price";
-
     //Pricing History Table Column Names
     private static final String PRICING_HISTORY_KEY_ID = "type_id";
     private static final String PRICING_HISTORY_KEY_PRICE = "adjusted_price";
     private static final String PRICING_HISTORY_KEY_UPDATED = "updated_last";
-
     //Group Items Table Column Names
     private static final String GROUP_ITEMS_GROUP_KEY = "group_id";
     private static final String GROUP_ITEMS_ITEM_KEY = "type_id";
-
     //Category Groups Table Column Names
     private static final String CATEGORY_GROUPS_GROUP_KEY = "group_id";
     private static final String CATEGORY_GROUPS_CATEGORY_KEY = "category_id";
-
     private final Context mycontext;
+    private SQLiteDatabase db;
 
     public EveMarketDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, null);
@@ -89,14 +79,14 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
                 PRICING_HISTORY_KEY_UPDATED + "DATETIME" + ")";
 
         String CREATE_GROUP_ITEMS_TABLE = "CREATE TABLE " + TABLE_GROUP_ITEMS + "(" +
-                "ID PRIMARY KEY AUTOINCREMENT,"+
-                GROUP_ITEMS_GROUP_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_GROUPS + "("+GROUPS_KEY_ID+")," +
-                GROUP_ITEMS_ITEM_KEY + "INTEGER FOREIGN KEY REFERENCES" + TABLE_ITEMS + "("+ITEMS_KEY_ID+"))";
+                "ID PRIMARY KEY AUTOINCREMENT," +
+                GROUP_ITEMS_GROUP_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + ")," +
+                GROUP_ITEMS_ITEM_KEY + "INTEGER FOREIGN KEY REFERENCES" + TABLE_ITEMS + "(" + ITEMS_KEY_ID + "))";
 
         String CREATE_CATEGORY_GROUPS_TABLE = "CREATE TABLE " + TABLE_CATEGORY_GROUPS + "(" +
                 "ID PRIMARY KEY AUTOINCREMENT," +
-                CATEGORY_GROUPS_CATEGORY_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_CATEGORIES + "("+CATEGORIES_KEY_ID+"),"+
-                CATEGORY_GROUPS_GROUP_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_GROUPS + "("+GROUPS_KEY_ID+"))";
+                CATEGORY_GROUPS_CATEGORY_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_CATEGORIES + "(" + CATEGORIES_KEY_ID + ")," +
+                CATEGORY_GROUPS_GROUP_KEY + "INTEGER FOREIGN KEY REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "))";
 
         db.execSQL(CREATE_ITEMS_TABLE);
         db.execSQL(CREATE_GROUP_TABLE);

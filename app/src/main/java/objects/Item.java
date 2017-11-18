@@ -6,22 +6,20 @@ package objects;
 
 public class Item {
     private int itemid;
+    private String name;
+    private String description;
 
     public Item() {
-        this.itemid=0;
-        this.name="default";
-        this.description="default description";
+        this.itemid = 0;
+        this.name = "default";
+        this.description = "default description";
     }
-
-    private String name;
 
     public Item(int itemid, String name, String description) {
         this.itemid = itemid;
         this.name = name;
         this.description = description;
     }
-
-    private String description;
 
     public int getItemid() {
         return itemid;
