@@ -1,8 +1,10 @@
 package ca.prairesunapplications.evemarkethub.database;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by fluffy on 16/11/17.
@@ -11,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "evemarket";
     //Table Names
     private static final String TABLE_ITEMS = "items";
@@ -59,6 +61,11 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
      * Called only on first time creation, after that, onUpgrade needs to be used
      */
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        cleanSlate();
+    }
+
+    private void createDb(SQLiteDatabase sqLiteDatabase) {
+        Log.i("EveMarket", "Creating Database");
         db = sqLiteDatabase;
         String CREATE_ITEMS_TABLE = "CREATE TABLE " + TABLE_ITEMS + "(" +
                 ITEMS_KEY_ID + " INTEGER PRIMARY KEY," +
@@ -87,31 +94,61 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 GROUP_ITEMS_GROUP_KEY + " INTEGER, " +
                 GROUP_ITEMS_ITEM_KEY + " INTEGER, " +
-                "FOREIGN KEY ("+GROUP_ITEMS_GROUP_KEY+") REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "), " +
-                "FOREIGN KEY ("+GROUP_ITEMS_ITEM_KEY+") REFERENCES " + TABLE_ITEMS + "(" + ITEMS_KEY_ID + "))";
+                "FOREIGN KEY (" + GROUP_ITEMS_GROUP_KEY + ") REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "), " +
+                "FOREIGN KEY (" + GROUP_ITEMS_ITEM_KEY + ") REFERENCES " + TABLE_ITEMS + "(" + ITEMS_KEY_ID + "))";
 
         String CREATE_CATEGORY_GROUPS_TABLE = "CREATE TABLE " + TABLE_CATEGORY_GROUPS + "(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CATEGORY_GROUPS_CATEGORY_KEY + " INTEGER, " +
                 CATEGORY_GROUPS_GROUP_KEY + " INTEGER, " +
-                "FOREIGN KEY ("+CATEGORY_GROUPS_CATEGORY_KEY+") REFERENCES " + TABLE_CATEGORIES + "(" + CATEGORIES_KEY_ID + "), " +
-                "FOREIGN KEY ("+CATEGORY_GROUPS_GROUP_KEY+") REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "))";
+                "FOREIGN KEY (" + CATEGORY_GROUPS_CATEGORY_KEY + ") REFERENCES " + TABLE_CATEGORIES + "(" + CATEGORIES_KEY_ID + "), " +
+                "FOREIGN KEY (" + CATEGORY_GROUPS_GROUP_KEY + ") REFERENCES " + TABLE_GROUPS + "(" + GROUPS_KEY_ID + "))";
 
         db.execSQL(CREATE_ITEMS_TABLE);
+        Log.i("EveMarket", "Created Items Table");
         db.execSQL(CREATE_GROUP_TABLE);
+        Log.i("EveMarket", "Created Groups Table");
         db.execSQL(CREATE_CATEGORY_TABLE);
+        Log.i("EveMarket", "Created Category Table");
         db.execSQL(CREATE_MARKETING_PRICING_TABLE);
+        Log.i("EveMarket", "Created Market Table");
         db.execSQL(CREATE_PRICING_HISTORY_TABLE);
+        Log.i("EveMarket", "Created History Table");
         db.execSQL(CREATE_GROUP_ITEMS_TABLE);
+        Log.i("EveMarket", "Created Group Items Table");
         db.execSQL(CREATE_CATEGORY_GROUPS_TABLE);
+        Log.i("EveMarket", "Created Category Groups Table");
+    }
 
-        //new LoadDb(mycontext, db);
+    public void cleanSlate() {
 
+        Log.d("EveMartket", "Cleaning Database");
+
+        db = getWritableDatabase();
+
+        String DROP_TABLE_ITEMS = "DROP TABLE IF EXISTS " + TABLE_ITEMS;
+        String DROP_TABLE_GROUPS = "DROP TABLE IF EXISTS " + TABLE_GROUPS;
+        String DROP_TABLE_CATEGORY = "DROP TABLE IF EXISTS " + TABLE_CATEGORIES;
+        String DROP_TABLE_MARKET = "DROP TABLE IF EXISTS " + TABLE_MARKET_PRICE;
+        String DROP_TABLE_HISTORY = "DROP TABLE IF EXISTS " + TABLE_PRICING_HISTORY;
+        String DROP_TABLE_ITEM_GROUPS = "DROP TABLE IF EXISTS " + TABLE_GROUP_ITEMS;
+        String DROP_TABLE_CATEGORY_GROUPS = "DROP TABLE IF EXISTS " + TABLE_CATEGORY_GROUPS;
+
+        db.execSQL(DROP_TABLE_CATEGORY_GROUPS);
+        db.execSQL(DROP_TABLE_ITEM_GROUPS);
+        db.execSQL(DROP_TABLE_HISTORY);
+        db.execSQL(DROP_TABLE_MARKET);
+        db.execSQL(DROP_TABLE_CATEGORY);
+        db.execSQL(DROP_TABLE_GROUPS);
+        db.execSQL(DROP_TABLE_ITEMS);
+
+        createDb(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        Log.i("EveMarket", "-------------------------------------------------------------- onUpgrade called");
+        createDb(sqLiteDatabase);
     }
 
     @Override
@@ -125,7 +162,26 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
     }
 
     // When called, the app will call the EVE url to get the latest info on the provided item id
-    public boolean updateItem(int id){
+    public boolean updateItem(int id) {
         return true;
+    }
+
+    public void addItem(int id, String name, String description) {
+        db = getWritableDatabase();
+        String sql = "INSERT INTO " + TABLE_ITEMS +
+                " VALUES (" + id + ", '" + name + "', '" + description + "')";
+
+        try {
+            db.execSQL(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        /*
+        Log.i("Item Inserted > ",
+                "ID: " + id + ", " +
+                        "Name: " + name + ", " +
+                        "Desc: " + description);
+        */
     }
 }

@@ -1,12 +1,11 @@
 package ca.prairesunapplications.evemarkethub.database;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,14 +15,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import ca.prairesunapplications.evemarkethub.screens.MainActivity;
-import xdroid.toaster.Toaster;
-
 /**
  * Created by fluffy on 18/11/17.
  *
  * This class' sole purpose is to house all calls to load data into the EveMarket DB
  * This class will assume the database is already created and the referenced table columns exist
+ *
+ * This class will perform ALL url calls and pass the returned info to the DB Helper
  */
 
 public class LoadDb {
@@ -33,11 +31,9 @@ public class LoadDb {
     }
 
     private Context myContext;
-    private SQLiteDatabase db;
 
-    public LoadDb(Context context, SQLiteDatabase db) {
+    public LoadDb(Context context) {
         this.myContext = context;
-        this.db = db;
         loadItems();
         //loadGroups();
         //loadCategories();
@@ -47,9 +43,31 @@ public class LoadDb {
     }
 
     private void loadItems() {
-        String json = getJson(buildRequestURL(TYPES.type,"tranquility","dev", "0"));
-        TextView view = new TextView(myContext);
-        view.setText(json);
+        EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
+        String json = getJson(buildRequestURL(TYPES.type,"tranquility","dev", 1));
+        try {
+            JSONArray array = new JSONArray(json);
+
+            for (int i = 0; i < array.length(); i++){
+                int id = array.getInt(i);
+
+                String detailJson = getJson(buildRequestURL(TYPES.type, "tranquility", "dev", id));
+                JSONObject type = new JSONObject(detailJson);
+
+                if(type.getBoolean("published")){
+                   int type_id = type.getInt("type_id");
+                   String name = type.getString("name");
+                   String desc = cleanseString(type.getString("description"));
+
+                    handler.addItem(type_id,name,desc);
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void loadGroups(){
@@ -80,11 +98,11 @@ public class LoadDb {
      * @param i optional id of object we want details for
      * @return finished constructed url string that matches the EVE API specs
      */
-    private String buildRequestURL(@NonNull TYPES t,@NonNull  String s,@NonNull  String l,@NonNull String i){
+    private String buildRequestURL(@NonNull TYPES t,@NonNull  String s,@NonNull  String l,@NonNull int i){
 
         String url;
         String type = "";
-        if(i.equals("0")){
+        if(i == 1){
             switch (t){
                 case type:
                     type = "types";
@@ -119,7 +137,7 @@ public class LoadDb {
                     break;
             }
 
-            url = "https://esi.tech.ccp.is/"+ l +"/universe/"+ type +"/"+ Integer.parseInt(i) +"/?datasource="+s+"&page=1";
+            url = "https://esi.tech.ccp.is/"+ l +"/universe/"+ type +"/"+ i +"/?datasource="+s+"&page=1";
         }
 
         return url;
@@ -144,7 +162,6 @@ public class LoadDb {
 
             while((line = reader.readLine()) != null){
                 buffer.append(line+"\n");
-                Log.d("Response", "> " + line);
             }
 
             return buffer.toString();
@@ -156,4 +173,11 @@ public class LoadDb {
         }
         return null;
     }
+
+    private String cleanseString(String d){
+        d = d.replaceAll("\\<.*?>", "");
+        d = d.replaceAll("'", "");
+        return d;
+    }
+
 }

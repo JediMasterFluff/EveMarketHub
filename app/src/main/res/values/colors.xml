@@ -9,10 +9,10 @@
     <color name="colorPrimary">#2D7FB8</color>
     <color name="colorPrimaryDark">#094B7A</color>
     <color name="colorAccent">#00adff</color>2
-    <color name="colorBackground">#1D2128</color>
+    <color name="colorBackground">#1d2128</color>
 
     <color name="colorGraphBackground">#596272</color>
-    <color name="colorPositivePriceDiff">#61B329</color>
+    <color name="colorPositivePriceDiff">#61b329</color>
     <color name="colorNegativePriceDiff">#B82A50</color>
     <color name="colorNoPriceDiff">#FFF</color>
 

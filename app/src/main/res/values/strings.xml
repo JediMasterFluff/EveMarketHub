@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EveMarketHub</string>
     <string name="item_details_item_name">ItemName</string>
-    <string name="item_details_default_price">0</string>
+    <string name="item_details_default_price">1000000</string>
     <string name="item_details_category_default">Category</string>
     <string name="item_details_descrip_default">Item Description</string>
 
