@@ -6,20 +6,75 @@
     android:layout_height="match_parent"
     tools:context="ca.prairesunapplications.evemarkethub.screens.ItemDetails">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="222dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
+        android:id="@+id/itemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:inputType="none"
+        android:lines="1"
+        android:text="@string/item_details_category_default"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/itemNameTitle" />
+
+    <TextView
+        android:id="@+id/itemDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:inputType="none"
+        android:text="@string/item_details_descrip_default"
+        app:layout_constraintBottom_toBottomOf="@+id/itemPriceView"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/itemCategory"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/itemNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_side_padding"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="false"
+        android:inputType="none"
+        android:lines="1"
+        android:text="@string/item_details_item_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/itemPriceView"
-        android:layout_width="105dp"
+        android:layout_width="0dp"
         android:layout_height="93dp"
         android:layout_margin="@dimen/app_side_padding"
+        android:layout_marginEnd="8dp"
+        android:autoSizeMaxTextSize="112sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
         android:clickable="false"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:inputType="none"
         android:lines="1"
         android:maxLines="1"
         android:text="@string/item_details_default_price"
         android:textAlignment="center"
-        android:textSize="60sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.jjoe64.graphview.GraphView
@@ -29,44 +84,6 @@
         android:layout_margin="@dimen/app_side_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
-
-    <TextView
-        android:id="@+id/itemNameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/app_side_padding"
-        android:clickable="false"
-        android:inputType="none"
-        android:lines="1"
-        android:text="@string/item_details_item_name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/itemCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/app_side_padding"
-        android:inputType="none"
-        android:lines="1"
-        android:text="@string/item_details_category_default"
-        android:textSize="12sp"
-        android:textStyle="italic"
-        app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
-        app:layout_constraintTop_toBottomOf="@+id/itemNameTitle" />
-
-    <TextView
-        android:id="@+id/itemDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/app_side_padding"
-        android:ellipsize="end"
-        android:inputType="none"
-        android:text="@string/item_details_descrip_default"
-        app:layout_constraintBottom_toBottomOf="@+id/itemPriceView"
-        app:layout_constraintLeft_toRightOf="@+id/itemPriceView"
-        app:layout_constraintTop_toBottomOf="@+id/itemCategory" />
 
     <ListView
         android:layout_width="0dp"

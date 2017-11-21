@@ -1,10 +1,17 @@
 package ca.prairesunapplications.evemarkethub.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by fluffy on 16/11/17.
@@ -183,5 +190,49 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
                         "Name: " + name + ", " +
                         "Desc: " + description);
         */
+    }
+
+    public JSONObject getItem(int id) {
+
+        String sql = "SELECT i.name, i.price, c.name " +
+                "FROM items as i, Category as c, Group_Items as gi, Category_Groups as cg " +
+                "WHERE i.type_id = " + id + " " +
+                "AND i.type_id = gi.type_id" +
+                "AND gi.group_id = cg.group_id" +
+                "AND cg.category_id = c.category_id";
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery(sql, null);
+        c.moveToNext();
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("id", id);
+            object.put("name", c.getString(0));
+            object.put("price", c.getDouble(1));
+            object.put("category", c.getString(2));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
+    public Map<Float, Float> gerPricingHistory(int id) {
+
+        Map<Float, Float> map = new HashMap<>();
+
+        String sql = "SELECT old_price, updated_last " +
+                "FROM Pricing_History " +
+                "WHERE type_id = " + id;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery(sql, null);
+        while (c.moveToNext()) {
+            map.put(c.getFloat(0), c.getFloat(1));
+        }
+
+        return map;
+
     }
 }
