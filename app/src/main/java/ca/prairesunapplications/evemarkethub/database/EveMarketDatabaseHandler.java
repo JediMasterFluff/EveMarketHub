@@ -55,12 +55,11 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
     private static final String CATEGORY_GROUPS_GROUP_KEY = "group_id";
     private static final String CATEGORY_GROUPS_CATEGORY_KEY = "category_id";
 
-    private final Context mycontext;
     private SQLiteDatabase db;
 
     public EveMarketDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, null);
-        this.mycontext = context;
+        Context mycontext = context;
     }
 
     @Override
@@ -215,6 +214,8 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        c.close();
         return object;
     }
 
@@ -231,7 +232,7 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
         while (c.moveToNext()) {
             map.put(c.getFloat(0), c.getFloat(1));
         }
-
+        c.close();
         return map;
 
     }

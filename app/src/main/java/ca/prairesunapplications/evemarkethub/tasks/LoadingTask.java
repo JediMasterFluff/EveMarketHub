@@ -17,8 +17,7 @@ public class LoadingTask extends AsyncTask<String,Integer,Integer> {
 
     private final ProgressBar progressBar;
     private final LoadingTaskFinishedListener finishedListener;
-    private Context myContext;
-    private EveMarketDatabaseHandler handler;
+    private final Context myContext;
 
     public interface LoadingTaskFinishedListener{
         void onTaskFinished();
@@ -40,7 +39,7 @@ public class LoadingTask extends AsyncTask<String,Integer,Integer> {
     }
 
     private void downloadResources() {
-        handler = new EveMarketDatabaseHandler(myContext);
+        EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
         handler.cleanSlate();
         new LoadDb(myContext);
     }

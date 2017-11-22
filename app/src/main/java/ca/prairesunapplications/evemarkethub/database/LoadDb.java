@@ -30,7 +30,7 @@ public class LoadDb {
         type,group,category,market
     }
 
-    private Context myContext;
+    private final Context myContext;
 
     public LoadDb(Context context) {
         this.myContext = context;
@@ -44,14 +44,14 @@ public class LoadDb {
 
     private void loadItems() {
         EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
-        String json = getJson(buildRequestURL(TYPES.type,"tranquility","dev", 1));
+        String json = getJson(buildRequestURL(1));
         try {
             JSONArray array = new JSONArray(json);
 
             for (int i = 0; i < array.length(); i++){
                 int id = array.getInt(i);
 
-                String detailJson = getJson(buildRequestURL(TYPES.type, "tranquility", "dev", id));
+                String detailJson = getJson(buildRequestURL(id));
                 JSONObject type = new JSONObject(detailJson);
 
                 if(type.getBoolean("published")){
@@ -92,18 +92,15 @@ public class LoadDb {
 
     /**
      * Builds the EVE api url based on what and where you want the data from
-     * @param t the type of data you want
-     * @param s the server source you want it from
-     * @param l the server build you want the data from
      * @param i optional id of object we want details for
      * @return finished constructed url string that matches the EVE API specs
      */
-    private String buildRequestURL(@NonNull TYPES t,@NonNull  String s,@NonNull  String l,@NonNull int i){
+    private String buildRequestURL(@NonNull int i) {
 
         String url;
         String type = "";
         if(i == 1){
-            switch (t){
+            switch (TYPES.type) {
                 case type:
                     type = "types";
                     break;
@@ -114,16 +111,16 @@ public class LoadDb {
                     type = "categories";
                     break;
                 case market:
-                    url = "https://esi.tech.ccp.is/"+ l +"/markets/prices/?datasource=" + s;
+                    url = "https://esi.tech.ccp.is/" + "dev" + "/markets/prices/?datasource=" + "tranquility";
                     return url;
                 default:
                     break;
             }
 
-            url = "https://esi.tech.ccp.is/"+ l +"/universe/"+ type +"/?datasource="+s+"&page=1";
+            url = "https://esi.tech.ccp.is/" + "dev" + "/universe/" + type + "/?datasource=" + "tranquility" + "&page=1";
 
         }else{
-            switch (t){
+            switch (TYPES.type) {
                 case type:
                     type = "types";
                     break;
@@ -137,13 +134,13 @@ public class LoadDb {
                     break;
             }
 
-            url = "https://esi.tech.ccp.is/"+ l +"/universe/"+ type +"/"+ i +"/?datasource="+s+"&page=1";
+            url = "https://esi.tech.ccp.is/" + "dev" + "/universe/" + type + "/" + i + "/?datasource=" + "tranquility" + "&page=1";
         }
 
         return url;
     }
 
-    public String getJson(String u){
+    private String getJson(String u) {
 
         HttpURLConnection connection;
         BufferedReader reader;

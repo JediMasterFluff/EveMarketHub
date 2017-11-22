@@ -23,15 +23,13 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteViewHolder> {
 
-    private Context context;
-    List<Item> favourites;
-    SharedPreference preference;
+    private final List<Item> favourites;
+    private final SharedPreference preference;
 
     @Override
     public FavouriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favourite_item_card,parent,false);
-        FavouriteViewHolder fvh = new FavouriteViewHolder(v);
-        return fvh;
+        return new FavouriteViewHolder(v);
     }
 
     @Override
@@ -71,10 +69,10 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
     }
 
     public static class FavouriteViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
-        TextView name;
-        TextView category;
-        TextView price;
+        final CardView cv;
+        final TextView name;
+        final TextView category;
+        final TextView price;
 
         FavouriteViewHolder(View itemView){
             super(itemView);
@@ -86,7 +84,7 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
     }
 
     public RVFavAdapter(Context context, List<Item> items) {
-        this.context = context;
+        Context context1 = context;
         this.favourites = items;
         preference = new SharedPreference();
     }

@@ -17,8 +17,7 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView rv;
-    private List<Item> fav_items;
+    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public List<Item> getFav_items(){
+    private List<Item> getFav_items() {
 
         SharedPreference preference = new SharedPreference();
 
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateFavourites() {
-        fav_items = getFav_items();
+        List<Item> fav_items = getFav_items();
 
         rv = findViewById(R.id.favourite_list);
         rv.setHasFixedSize(true);

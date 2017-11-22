@@ -26,7 +26,6 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class ItemDetails extends AppCompatActivity {
 
-    private TextView priceView;
     private SharedPreference preference;
     private Item item;
 
@@ -38,7 +37,7 @@ public class ItemDetails extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.setTitle("");
 
-        priceView = findViewById(R.id.itemPriceView);
+        TextView priceView = findViewById(R.id.itemPriceView);
 
         preference = new SharedPreference();
 

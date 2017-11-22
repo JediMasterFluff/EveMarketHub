@@ -26,7 +26,7 @@ public class LoadingScreen extends AppCompatActivity implements LoadingTask.Load
 
                 REMOVE ONCE FINISHED
          */
-        this.getSharedPreferences(SharedPreference.PREF_NAME, 0).edit().clear().commit(); // clears ALL preferences
+        this.getSharedPreferences(SharedPreference.PREF_NAME, 0).edit().clear().apply(); // clears ALL preferences
 
 
         new LoadingTask(progressBar,this, this).execute();

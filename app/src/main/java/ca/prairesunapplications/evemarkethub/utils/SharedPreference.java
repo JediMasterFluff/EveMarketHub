@@ -18,13 +18,13 @@ import ca.prairesunapplications.evemarkethub.objects.Item;
 public class SharedPreference {
 
     public static final String PREF_NAME = "EVEMARKETHUB";
-    public static final String FAVS = "Item_Favourites";
+    private static final String FAVS = "Item_Favourites";
 
     public SharedPreference() {
         super();
     }
 
-    public void saveFavourites(Context context, List<Item> items) {
+    private void saveFavourites(Context context, List<Item> items) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
 
@@ -37,7 +37,7 @@ public class SharedPreference {
 
         editor.putString(FAVS, json);
 
-        editor.commit();
+        editor.apply();
     }
 
     public void addFavourite(Context context, Item item) {
@@ -62,7 +62,7 @@ public class SharedPreference {
         SharedPreferences settings;
         List<Item> favs;
 
-        settings = context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
+        settings = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         if (settings.contains(FAVS)) {
             String json = settings.getString(FAVS, null);
@@ -81,10 +81,7 @@ public class SharedPreference {
 
         ArrayList<Item> items = getFavourites(context);
         if (items != null) {
-            if (items.contains(item))
-                return true;
-            else
-                return false;
+            return items.contains(item);
         } else
             return false;
     }

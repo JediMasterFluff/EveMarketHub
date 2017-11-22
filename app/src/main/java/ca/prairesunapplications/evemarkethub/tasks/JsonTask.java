@@ -6,7 +6,7 @@ import android.os.AsyncTask;
  * Created by fluffy on 18/11/17.
  */
 
-public class JsonTask extends AsyncTask<String,String,String> {
+class JsonTask extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String s) {
