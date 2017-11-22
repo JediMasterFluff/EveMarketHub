@@ -1,9 +1,9 @@
 package ca.prairesunapplications.evemarkethub.screens;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,27 +22,36 @@ import java.util.Map;
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.database.EveMarketDatabaseHandler;
 import ca.prairesunapplications.evemarkethub.objects.Item;
+import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class ItemDetails extends AppCompatActivity {
 
     private TextView priceView;
+    private SharedPreference preference;
+    private Item item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
 
-        ActionBar bar = getActionBar();
-        //bar.setTitle("");
+        ActionBar bar = getSupportActionBar();
+        bar.setTitle("");
 
         priceView = findViewById(R.id.itemPriceView);
+
+        preference = new SharedPreference();
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
-        int id = extras.getInt("Item ID");
+        int id;
+        if (extras != null)
+            id = extras.getInt("Item ID");
+        else
+            id = 0;
 
-        Item item = new Item(); //getItem(id);
+        item = new Item(); //getItem(id);
 
         GraphView graph = findViewById(R.id.itemHistoryGraph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();//getPricingHistory(id);
@@ -101,19 +110,30 @@ public class ItemDetails extends AppCompatActivity {
     }
 
     private void CreateMenu(Menu menu) {
-        MenuItem item = menu.add(0, 0, 0, "Toggle Favourite Item");
+        MenuItem menuItem = menu.add(0, 0, 0, "Toggle Favourite Item");
         {
-            item.setIcon(R.drawable.ic_unfavourite);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            if (preference.isFavourite(this, item))
+                menuItem.setIcon(R.drawable.ic_favourite);
+            else
+                menuItem.setIcon(R.drawable.ic_unfavourite);
+
+            menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
     }
 
-    private boolean MenuChoice(MenuItem item) {
-        switch (item.getItemId()) {
+    private boolean MenuChoice(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case 0:
                 // check if item is already favourited
                 // if yes, remove from favourite list and change icon to ic_unfavourite
                 // else, add to favourites list and change icon to ic_favourite
+                if (preference.isFavourite(this, item)) { // if this item is already a fav
+                    preference.removeFavourite(this, item);
+                    menuItem.setIcon(R.drawable.ic_unfavourite);
+                } else {
+                    preference.addFavourite(this, item);
+                    menuItem.setIcon(R.drawable.ic_favourite);
+                }
                 return true;
             default:
                 return true;
@@ -121,8 +141,8 @@ public class ItemDetails extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return MenuChoice(item);
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        return MenuChoice(menuItem);
     }
 
     private LineGraphSeries<DataPoint> getPricingHistory(int id) {

@@ -15,12 +15,17 @@ import java.util.Locale;
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.screens.ItemDetails;
+import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 /**
  * Created by fluffy on 19/11/17.
  */
 
 public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteViewHolder> {
+
+    private Context context;
+    List<Item> favourites;
+    SharedPreference preference;
 
     @Override
     public FavouriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,7 +36,10 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
 
     @Override
     public void onBindViewHolder(FavouriteViewHolder holder, int position) {
-        holder.cv.setTag(items.get(position).getId());
+
+        Item i = getItem(position);
+
+        holder.cv.setTag(i.getId());
         final int id = (Integer) holder.cv.getTag();
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +51,18 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
             }
         });
 
-        holder.name.setText(items.get(position).getName());
-        holder.category.setText(items.get(position).getCategory_name());
-        holder.price.setText(String.format(Locale.CANADA,"%1$,.2f",items.get(position).getPrice()));
+        holder.name.setText(i.getName());
+        holder.category.setText(i.getCategory_name());
+        holder.price.setText(String.format(Locale.CANADA, "%1$,.2f", i.getPrice()));
+    }
+
+    private Item getItem(int position) {
+        return favourites.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return favourites.size();
     }
 
     @Override
@@ -73,9 +85,13 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
         }
     }
 
-    List<Item> items;
+    public RVFavAdapter(Context context, List<Item> items) {
+        this.context = context;
+        this.favourites = items;
+        preference = new SharedPreference();
+    }
 
-    public RVFavAdapter(List<Item> items){
-        this.items = items;
+    public void add(Item item) {
+        favourites.add(item);
     }
 }

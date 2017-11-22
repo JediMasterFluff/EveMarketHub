@@ -1,15 +1,13 @@
 package ca.prairesunapplications.evemarkethub.screens;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.tasks.LoadingTask;
+import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -22,6 +20,14 @@ public class LoadingScreen extends AppCompatActivity implements LoadingTask.Load
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen);
         ProgressBar progressBar = findViewById(R.id.progressBar);
+
+        /*
+                FOR TESTING PURPOSES ONLY!!
+
+                REMOVE ONCE FINISHED
+         */
+        this.getSharedPreferences(SharedPreference.PREF_NAME, 0).edit().clear().commit(); // clears ALL preferences
+
 
         new LoadingTask(progressBar,this, this).execute();
 

@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.adapters.RVFavAdapter;
 import ca.prairesunapplications.evemarkethub.objects.Item;
+import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,16 +25,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fav_items = getFav_items();
+        generateFavourites();
+    }
 
-        rv = findViewById(R.id.favourite_list);
-        rv.setHasFixedSize(true);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        rv.setLayoutManager(layoutManager);
-
-        RVFavAdapter adapter = new RVFavAdapter(fav_items);
-        rv.setAdapter(adapter);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("EveMarket", "Called onResume");
+        generateFavourites();
     }
 
     public void sendMessage(View view) {
@@ -48,15 +47,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public List<Item> getFav_items(){
-        // This will need to load the list of names from a persistence object created by the user
-        // but for now, this will be defaulted to 5 random things
-        List<Item> list = new ArrayList<>();
 
-        for(int i=0; i<5;i++){
-            Item item = new Item(i, "Item "+i, "Category " + i, i * 1000000 );
-            list.add(item);
-        }
+        SharedPreference preference = new SharedPreference();
 
-        return list;
+        return preference.getFavourites(this);
+    }
+
+    private void generateFavourites() {
+        fav_items = getFav_items();
+
+        rv = findViewById(R.id.favourite_list);
+        rv.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rv.setLayoutManager(layoutManager);
+
+        RVFavAdapter adapter = new RVFavAdapter(this, fav_items);
+        rv.setAdapter(adapter);
     }
 }
