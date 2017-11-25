@@ -27,4 +27,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.ActionBar.TitleTextStyle" parent="AppTheme.ActionBarStyle">
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="AppTheme.ActionBarStyle" parent="AppTheme">
+        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.TitleTextStyle</item>
+    </style>
+
 </resources>

@@ -20,7 +20,9 @@
         <activity
             android:name=".screens.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".screens.ItemDetails" />
+        <activity
+            android:name=".screens.ItemDetails"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screens.ItemsList" />
         <activity
             android:name=".screens.LoadingScreen"

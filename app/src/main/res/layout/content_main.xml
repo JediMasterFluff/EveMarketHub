@@ -10,7 +10,7 @@
     <SearchView
         android:id="@+id/mainScreenSearch"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:iconifiedByDefault="true"
         android:queryHint="Search"
         android:layout_centerHorizontal="true"
@@ -27,37 +27,35 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/favourite_list"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/app_side_padding"
         android:background="@android:color/holo_purple"
+        android:scrollIndicators="none"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainScreenSearch" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+
+    <ListView
+        android:id="@+id/mainScreenItemList"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="260dp"
         android:layout_margin="@dimen/app_side_padding"
-        android:background="@android:color/holo_blue_bright"
+        android:orientation="vertical"
+        android:theme="@style/AppTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favourite_list">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/mainScreenItemList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.AppCompatButton
+        <!--<android.support.v7.widget.AppCompatButton
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="sendToItemList"
-                android:text="Button" />
-        </LinearLayout>
-    </ScrollView>
+                android:text="Button" /> -->
+    </ListView>
 
 </android.support.constraint.ConstraintLayout>

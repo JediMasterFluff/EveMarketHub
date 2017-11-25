@@ -31,7 +31,7 @@
                 android:inputType="none"
                 android:padding="2dp"
                 android:text="@string/item_details_item_name"
-                android:textAppearance="?android:textAppearanceListItem"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorBackground" />
 
             <TextView
@@ -45,7 +45,7 @@
                 android:inputType="none"
                 android:padding="2dp"
                 android:text="@string/item_details_descrip_default"
-                android:textAppearance="?android:textAppearanceListItemSecondary"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/colorGraphBackground" />
 
             <TextView

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.objects.Item;
+import xdroid.toaster.Toaster;
 
 /**
  * Created by fluffy on 21/11/17.
@@ -44,8 +45,11 @@ public class SharedPreference {
         List<Item> items = getFavourites(context);
         if (items == null) {
             items = new ArrayList<Item>();
-        } else if (items.size() < 5)// Only allowing 5 favourites at this time
+        } else if (items.size() < 5) {// Only allowing 5 favourites at this time
             items.add(item);
+            Toaster.toast("Item Added To Favourites");
+        } else
+            Toaster.toastLong("Cannot add any more favourites");
 
         saveFavourites(context, items);
     }
@@ -53,8 +57,13 @@ public class SharedPreference {
     public void removeFavourite(Context context, Item item) {
         ArrayList<Item> items = getFavourites(context);
         if (items != null) {
-            items.remove(item);
-            saveFavourites(context, items);
+            for (Item i : items) {
+                if (i.getId() == item.getId()) {
+                    items.remove(i);
+                    Toaster.toast("Item Removed From Favourites");
+                    saveFavourites(context, items);
+                }
+            }
         }
     }
 
@@ -70,9 +79,9 @@ public class SharedPreference {
             Item[] items = gson.fromJson(json, Item[].class);
 
             favs = Arrays.asList(items);
-            favs = new ArrayList<Item>(favs);
+            favs = new ArrayList<>(favs);
         } else
-            return new ArrayList<Item>();
+            return new ArrayList<>();
 
         return (ArrayList<Item>) favs;
     }
@@ -81,7 +90,11 @@ public class SharedPreference {
 
         ArrayList<Item> items = getFavourites(context);
         if (items != null) {
-            return items.contains(item);
+            for (Item i : items) {
+                if (i.getId() == item.getId())
+                    return true;
+            }
+            return false;
         } else
             return false;
     }
