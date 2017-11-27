@@ -3,7 +3,7 @@
     <string name="item_details_item_name">ItemName</string>
     <string name="item_details_default_price">1000000</string>
     <string name="item_details_category_default">Category</string>
-    <string name="item_details_descrip_default">Item Description</string>
+    <string name="item_details_descrip_default">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.</string>
 
     <string name="title_activity_loading_screen">LoadingScreen</string>
     <string name="dummy_button">Dummy Button</string>
