@@ -61,13 +61,9 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 
     public EveMarketDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, null);
-        Context mycontext = context;
     }
 
     @Override
-    /**
-     * Called only on first time creation, after that, onUpgrade needs to be used
-     */
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         cleanSlate();
     }

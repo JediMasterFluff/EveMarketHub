@@ -25,7 +25,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/favourites_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/app_side_padding"

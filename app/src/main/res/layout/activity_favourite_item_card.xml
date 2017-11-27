@@ -44,7 +44,7 @@
                 android:contextClickable="false"
                 android:inputType="none"
                 android:padding="2dp"
-                android:text="@string/item_details_descrip_default"
+                android:text="@string/item_details_category_default"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/colorGraphBackground" />
 
@@ -63,7 +63,8 @@
                 android:text="@string/item_details_default_price"
                 android:textAlignment="center"
                 android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@color/colorPositivePriceDiff" />
+                android:textColor="@color/colorPositivePriceDiff"
+                tools:ignore="RelativeOverlap" />
 
         </RelativeLayout>
 

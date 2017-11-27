@@ -24,12 +24,10 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteViewHolder> {
 
     private final List<Item> favourites;
-    private final SharedPreference preference;
 
     public RVFavAdapter(Context context, List<Item> items) {
-        Context context1 = context;
         this.favourites = items;
-        preference = new SharedPreference();
+        SharedPreference preference = new SharedPreference();
     }
 
     @Override
