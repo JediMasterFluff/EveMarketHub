@@ -14,4 +14,5 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="favourites_header">Favourites</string>
+    <string name="item_details_last_updated_default">25/11/17 7:03PM</string>
 </resources>
