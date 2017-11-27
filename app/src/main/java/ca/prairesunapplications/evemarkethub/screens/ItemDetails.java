@@ -98,7 +98,6 @@ public class ItemDetails extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return item;
     }
 
@@ -108,7 +107,7 @@ public class ItemDetails extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.items_detail_bar_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_items_detail_bar_menu, menu);
 
         MenuItem favItem = menu.getItem(0);
 

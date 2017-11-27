@@ -24,21 +24,47 @@
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/favourite_list"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/favourites_layout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="@dimen/app_side_padding"
-        android:background="@android:color/holo_purple"
-        android:scrollIndicators="none"
-        android:scrollbarAlwaysDrawHorizontalTrack="false"
-        android:scrollbarAlwaysDrawVerticalTrack="false"
-        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/mainScreenItemList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainScreenSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/mainScreenSearch">
 
+        <TextView
+            android:id="@+id/favourites_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            android:inputType="none"
+            android:text="@string/favourites_header"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/favourite_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:scrollIndicators="none"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favourites_header" />
+
+    </android.support.constraint.ConstraintLayout>
     <ListView
         android:id="@+id/mainScreenItemList"
         android:layout_width="0dp"

@@ -55,6 +55,10 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
     private static final String CATEGORY_GROUPS_GROUP_KEY = "group_id";
     private static final String CATEGORY_GROUPS_CATEGORY_KEY = "category_id";
 
+    public static final int PRICE_INCREASE = 1;
+    public static final int PRICE_DESCREASE = -1;
+    public static final int PRICE_NEUTRAL = 0;
+
     private SQLiteDatabase db;
 
     public EveMarketDatabaseHandler(Context context) {
@@ -234,6 +238,24 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
         }
         c.close();
         return map;
+
+    }
+
+    public int getOldPriceChange(int id) {
+
+        db = getReadableDatabase();
+
+        String sql = "SELECT old_price, updated_last " +
+                "FROM Pricing_History " +
+                "WHERE type_id = " + id + " " +
+                "ORDER BY updated_last DESC LIMIT 1";
+        Cursor c = db.rawQuery(sql, null);
+        c.moveToNext();
+
+        int oldestPrice = c.getInt(0);
+        c.close();
+
+        return oldestPrice;
 
     }
 }

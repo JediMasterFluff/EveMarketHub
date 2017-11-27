@@ -88,8 +88,4 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
         this.favourites = items;
         preference = new SharedPreference();
     }
-
-    public void add(Item item) {
-        favourites.add(item);
-    }
 }

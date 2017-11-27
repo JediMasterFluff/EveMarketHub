@@ -22,6 +22,6 @@
         android:background="@color/cardview_light_background"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_bar_header"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer_menu" />
 
 </android.support.v4.widget.DrawerLayout>

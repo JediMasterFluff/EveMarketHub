@@ -8,6 +8,7 @@ import ca.prairesunapplications.evemarkethub.R;
 
 @SuppressWarnings("DefaultFileTemplate")
 public class Item {
+
     private int id;
     private String name;
     private String description;

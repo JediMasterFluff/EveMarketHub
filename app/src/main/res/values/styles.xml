@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:actionMenuTextColor">@color/colorBackground</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
