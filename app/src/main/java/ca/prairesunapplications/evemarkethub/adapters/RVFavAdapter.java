@@ -26,9 +26,15 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
     private final List<Item> favourites;
     private final SharedPreference preference;
 
+    public RVFavAdapter(Context context, List<Item> items) {
+        Context context1 = context;
+        this.favourites = items;
+        preference = new SharedPreference();
+    }
+
     @Override
     public FavouriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favourite_item_card,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favourite_item_card, parent, false);
         return new FavouriteViewHolder(v);
     }
 
@@ -74,18 +80,12 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
         final TextView category;
         final TextView price;
 
-        FavouriteViewHolder(View itemView){
+        FavouriteViewHolder(View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.fav_cv);
             name = itemView.findViewById(R.id.fav_item_name);
             category = itemView.findViewById(R.id.fav_item_category);
             price = itemView.findViewById(R.id.fav_item_price);
         }
-    }
-
-    public RVFavAdapter(Context context, List<Item> items) {
-        Context context1 = context;
-        this.favourites = items;
-        preference = new SharedPreference();
     }
 }

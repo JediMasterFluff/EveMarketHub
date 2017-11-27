@@ -13,17 +13,13 @@ import ca.prairesunapplications.evemarkethub.database.LoadDb;
  * Created by fluffy on 18/11/17.
  */
 
-public class LoadingTask extends AsyncTask<String,Integer,Integer> {
+public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 
     private final ProgressBar progressBar;
     private final LoadingTaskFinishedListener finishedListener;
     private final Context myContext;
 
-    public interface LoadingTaskFinishedListener{
-        void onTaskFinished();
-    }
-
-    public LoadingTask(ProgressBar progressBar, @Nullable LoadingTaskFinishedListener finishedListener, Context context){
+    public LoadingTask(ProgressBar progressBar, @Nullable LoadingTaskFinishedListener finishedListener, Context context) {
         this.progressBar = progressBar;
         this.finishedListener = finishedListener;
         this.myContext = context;
@@ -32,8 +28,8 @@ public class LoadingTask extends AsyncTask<String,Integer,Integer> {
     @Override
     protected Integer doInBackground(String... strings) {
         Log.i("EveMarketHub", "Starting task");
-        if(resourcesExist()){
-           // downloadResources();
+        if (resourcesExist()) {
+            // downloadResources();
         }
         return 1234;
     }
@@ -54,10 +50,14 @@ public class LoadingTask extends AsyncTask<String,Integer,Integer> {
         progressBar.setProgress(integers[0]);
     }
 
-
     protected void onPostExecute(Integer integer) {
         super.onPostExecute(integer);
         finishedListener.onTaskFinished();
 
+    }
+
+
+    public interface LoadingTaskFinishedListener {
+        void onTaskFinished();
     }
 }
