@@ -20,14 +20,14 @@ public class Item {
     public Item() {
         this.id = 0;
         this.name = "default_item";
-        this.description =  Integer.toString(R.string.item_details_descrip_default);
+        this.description = Integer.toString(R.string.item_details_descrip_default);
         this.group_name = "no group";
         this.category_name = "no category";
         this.price = 0.0;
         this.average_price = 0.0;
     }
 
-    public Item(int id, String name,String category, double price) {
+    public Item(int id, String name, String category, double price) {
         this.id = id;
         this.name = name;
         this.description = "default";
@@ -80,6 +80,7 @@ public class Item {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getGroup_name() {
         return group_name;
     }

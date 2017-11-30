@@ -20,6 +20,9 @@ import java.util.Map;
 
 public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 
+    public static final int PRICE_INCREASE = 1;
+    public static final int PRICE_DESCREASE = -1;
+    public static final int PRICE_NEUTRAL = 0;
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "evemarket";
     //Table Names
@@ -54,22 +57,13 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
     //Category Groups Table Column Names
     private static final String CATEGORY_GROUPS_GROUP_KEY = "group_id";
     private static final String CATEGORY_GROUPS_CATEGORY_KEY = "category_id";
-
-    public static final int PRICE_INCREASE = 1;
-    public static final int PRICE_DESCREASE = -1;
-    public static final int PRICE_NEUTRAL = 0;
-
     private SQLiteDatabase db;
 
     public EveMarketDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, null);
-        Context mycontext = context;
     }
 
     @Override
-    /**
-     * Called only on first time creation, after that, onUpgrade needs to be used
-     */
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         cleanSlate();
     }

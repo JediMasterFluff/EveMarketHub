@@ -11,21 +11,20 @@
         android:id="@+id/mainScreenSearch"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:iconifiedByDefault="true"
-        android:queryHint="Search"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="@dimen/app_side_padding"
         android:layout_marginStart="@dimen/app_side_padding"
         android:layout_marginTop="@dimen/app_side_padding"
         android:background="@drawable/background"
+        android:iconifiedByDefault="true"
         android:onClick="sendMessage"
+        android:queryHint="Search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/favourites_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/app_side_padding"
@@ -65,6 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/favourites_header" />
 
     </android.support.constraint.ConstraintLayout>
+
     <ListView
         android:id="@+id/mainScreenItemList"
         android:layout_width="0dp"

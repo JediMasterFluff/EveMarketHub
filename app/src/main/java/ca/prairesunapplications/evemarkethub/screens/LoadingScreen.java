@@ -20,7 +20,7 @@ public class LoadingScreen extends AppCompatActivity implements LoadingTask.Load
         setContentView(R.layout.activity_loading_screen);
         ProgressBar progressBar = findViewById(R.id.progressBar);
 
-        new LoadingTask(progressBar,this, this).execute();
+        new LoadingTask(progressBar, this, this).execute();
 
     }
 
@@ -32,7 +32,7 @@ public class LoadingScreen extends AppCompatActivity implements LoadingTask.Load
 
     @Override
     public void onTaskFinished() {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

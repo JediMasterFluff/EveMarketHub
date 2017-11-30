@@ -86,7 +86,6 @@
         app:layout_constraintTop_toBottomOf="@+id/itemPriceView" />
 
     <ListView
-        android:id="@+id/empty_space"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/app_side_padding"
@@ -98,7 +97,6 @@
         app:layout_constraintTop_toBottomOf="@+id/itemDesc" />
 
     <TextView
-        android:id="@+id/last_update_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

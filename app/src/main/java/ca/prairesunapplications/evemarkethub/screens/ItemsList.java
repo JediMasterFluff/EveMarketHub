@@ -15,7 +15,7 @@ import ca.prairesunapplications.evemarkethub.R;
 
 public class ItemsList extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    SimpleCursorAdapter adapter;
+    private SimpleCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

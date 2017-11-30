@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/favourite_item"
-        android:title="Favourite"
         android:icon="@drawable/ic_unfavourite"
+        android:title="Favourite"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/refresh_item"
-        android:title="Refresh"
         android:icon="@drawable/ic_refresh_item"
+        android:title="Refresh"
         app:showAsAction="ifRoom" />
 </menu>

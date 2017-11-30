@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.FavouriteItemCard"></activity>
+        <activity android:name=".screens.FavouriteItemCard" />
     </application>
 
 </manifest>
