@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
 
-        RVFavAdapter adapter = new RVFavAdapter(this, fav_items);
+        RVFavAdapter adapter = new RVFavAdapter(this, fav_items, preference, null);
         rv.setAdapter(adapter);
     }
 }

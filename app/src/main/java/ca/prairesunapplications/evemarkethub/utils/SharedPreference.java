@@ -27,7 +27,7 @@ public class SharedPreference {
         super();
     }
 
-    private void saveFavourites(Context context, List<Item> items) {
+    public void saveFavourites(Context context, List<Item> items) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
 
