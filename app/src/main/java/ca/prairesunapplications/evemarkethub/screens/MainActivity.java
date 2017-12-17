@@ -43,11 +43,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	}
 
+	private void generateFavourites() {
+
+		SharedPreference preference = new SharedPreference();
+
+		List<Item> fav_items = preference.getFavourites(this);
+
+		RecyclerView rv = findViewById(R.id.favourite_list);
+		rv.setHasFixedSize(true);
+
+		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+		rv.setLayoutManager(layoutManager);
+
+		RVFavAdapter adapter = new RVFavAdapter(this, fav_items, preference);
+		rv.setAdapter(adapter);
+	}
+
 	@Override
 	public void onBackPressed() {
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		if(drawer.isDrawerOpen(GravityCompat.START)) drawer.closeDrawer(GravityCompat.START);
 		else super.onBackPressed();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		generateFavourites();
 	}
 
 	@Override
@@ -60,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			intent = new Intent(this, ItemDetails.class);
 			startActivity(intent);
 		} else if(id == R.id.nav_account) {
-			//            TODO
+			//TODO create Account Activity
 
 			//Open Account Activity
 
@@ -76,12 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		return true;
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		generateFavourites();
-	}
-
 	public void sendMessage(View view) {
 		Intent intent = new Intent(this, ItemDetails.class);
 
@@ -91,21 +107,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	public void sendToItemList(View view) {
 		Intent intent = new Intent(this, ItemsList.class);
 		startActivity(intent);
-	}
-
-	private void generateFavourites() {
-
-		SharedPreference preference = new SharedPreference();
-
-		List<Item> fav_items = preference.getFavourites(this);
-
-		RecyclerView rv = findViewById(R.id.favourite_list);
-		rv.setHasFixedSize(true);
-
-		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-		rv.setLayoutManager(layoutManager);
-
-		RVFavAdapter adapter = new RVFavAdapter(this, fav_items, preference);
-		rv.setAdapter(adapter);
 	}
 }

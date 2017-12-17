@@ -18,14 +18,14 @@ public class itemSearchTask extends AsyncTask<Object, Void, List<String>> {
 	private EveMarketDatabaseHandler handler;
 
 	@Override
-	protected void onPreExecute() {
-		//handler = new EveMarketDatabaseHandler();
-	}
-
-	@Override
 	protected List<String> doInBackground(Object... objects) {
 		// perform search here
 		return null;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		//handler = new EveMarketDatabaseHandler();
 	}
 
 	protected void onPostExecute(List<Item> items) {

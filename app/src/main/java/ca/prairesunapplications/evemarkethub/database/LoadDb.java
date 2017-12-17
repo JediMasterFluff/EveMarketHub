@@ -16,10 +16,8 @@ import java.net.URL;
 
 /**
  * Created by fluffy on 18/11/17.
- * <p>
  * This class' sole purpose is to house all calls to load data into the EveMarket DB
  * This class will assume the database is already created and the referenced table columns exist
- * <p>
  * This class will perform ALL url calls and pass the returned info to the DB Helper
  */
 
@@ -65,30 +63,11 @@ public class LoadDb {
 
 	}
 
-	private void loadGroups() {
-
-	}
-
-	private void loadCategories() {
-
-	}
-
-	private void loadMarketPricing() {
-
-	}
-
-	private void createCategoryGroups() {
-
-	}
-
-	private void createGroupItems() {
-
-	}
-
 	/**
 	 * Builds the EVE api url based on what and where you want the data from
 	 *
 	 * @param i optional id of object we want details for
+	 *
 	 * @return finished constructed url string that matches the EVE API specs
 	 */
 	private String buildRequestURL(@NonNull int i) {
@@ -169,6 +148,26 @@ public class LoadDb {
 		d = d.replaceAll("\\<.*?>", "");
 		d = d.replaceAll("'", "");
 		return d;
+	}
+
+	private void loadGroups() {
+
+	}
+
+	private void loadCategories() {
+
+	}
+
+	private void loadMarketPricing() {
+
+	}
+
+	private void createCategoryGroups() {
+
+	}
+
+	private void createGroupItems() {
+
 	}
 
 	private enum TYPES {

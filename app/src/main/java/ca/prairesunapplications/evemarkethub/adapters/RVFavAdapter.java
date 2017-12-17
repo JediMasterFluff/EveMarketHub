@@ -21,7 +21,6 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 /**
  * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to respond to move and
  * dismiss events from a {@link android.support.v7.widget.helper.ItemTouchHelper}.
- * <p>
  * Used to display a users selected favourited items on the main screen.
  *
  * @author Christian Bell (Fluffy)

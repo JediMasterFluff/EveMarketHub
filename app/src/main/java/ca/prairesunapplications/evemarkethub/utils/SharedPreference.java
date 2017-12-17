@@ -28,22 +28,6 @@ public class SharedPreference {
 		super();
 	}
 
-	public void saveFavourites(Context context, List<Item> items) {
-		SharedPreferences settings;
-		SharedPreferences.Editor editor;
-		Log.e("EveMarketHub", "getting settings from preference");
-		settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
-
-		editor = settings.edit();
-
-		Gson gson = new Gson();
-		String json = gson.toJson(items);
-
-		editor.putString(FAVS, json);
-
-		editor.apply();
-	}
-
 	public void addFavourite(Context context, Item item) {
 		List<Item> items = getFavourites(context);
 		if(items == null) {
@@ -61,17 +45,20 @@ public class SharedPreference {
 		saveFavourites(context, items);
 	}
 
-	public void removeFavourite(Context context, Item item) {
-		ArrayList<Item> items = getFavourites(context);
-		if(items != null) {
-			for(Item i : items) {
-				if(i.getId() == item.getId()) {
-					items.remove(i);
-					Toaster.toast("Item Removed From Favourites");
-					saveFavourites(context, items);
-				}
-			}
-		}
+	public void saveFavourites(Context context, List<Item> items) {
+		SharedPreferences settings;
+		SharedPreferences.Editor editor;
+		Log.e("EveMarketHub", "getting settings from preference");
+		settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
+
+		editor = settings.edit();
+
+		Gson gson = new Gson();
+		String json = gson.toJson(items);
+
+		editor.putString(FAVS, json);
+
+		editor.apply();
 	}
 
 	public ArrayList<Item> getFavourites(Context context) {
@@ -101,5 +88,18 @@ public class SharedPreference {
 			}
 			return false;
 		} else return false;
+	}
+
+	public void removeFavourite(Context context, Item item) {
+		ArrayList<Item> items = getFavourites(context);
+		if(items != null) {
+			for(Item i : items) {
+				if(i.getId() == item.getId()) {
+					items.remove(i);
+					Toaster.toast("Item Removed From Favourites");
+					saveFavourites(context, items);
+				}
+			}
+		}
 	}
 }

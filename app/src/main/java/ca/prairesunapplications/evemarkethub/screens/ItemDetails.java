@@ -84,6 +84,10 @@ public class ItemDetails extends AppCompatActivity {
 		}
 	}
 
+	private double getOldPrice(int id) {
+		return 0.0;
+	}
+
 	private Item getItem(int id) {
 		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(this);
 		JSONObject obj = handler.getItem(id);
@@ -98,10 +102,6 @@ public class ItemDetails extends AppCompatActivity {
 			e.printStackTrace();
 		}
 		return item;
-	}
-
-	private double getOldPrice(int id) {
-		return 0.0;
 	}
 
 	@Override

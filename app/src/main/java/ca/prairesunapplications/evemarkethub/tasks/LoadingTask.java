@@ -34,14 +34,14 @@ public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 		return 1234;
 	}
 
-	private void downloadResources() {
-		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
-		handler.cleanSlate();
-		new LoadDb(myContext);
-	}
-
 	private boolean resourcesExist() {
 		return true;
+	}
+
+	protected void onPostExecute(Integer integer) {
+		super.onPostExecute(integer);
+		finishedListener.onTaskFinished();
+
 	}
 
 	@Override
@@ -50,10 +50,10 @@ public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 		progressBar.setProgress(integers[0]);
 	}
 
-	protected void onPostExecute(Integer integer) {
-		super.onPostExecute(integer);
-		finishedListener.onTaskFinished();
-
+	private void downloadResources() {
+		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
+		handler.cleanSlate();
+		new LoadDb(myContext);
 	}
 
 

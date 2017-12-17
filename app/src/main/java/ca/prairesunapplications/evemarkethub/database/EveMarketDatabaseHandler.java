@@ -64,8 +64,43 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	@Override
+	public String getDatabaseName() {
+		return DATABASE_NAME;
+	}
+
+	@Override
+	public synchronized void close() {
+		super.close();
+	}
+
+	@Override
 	public void onCreate(SQLiteDatabase sqLiteDatabase) {
 		cleanSlate();
+	}
+
+	public void cleanSlate() {
+
+		Log.d("EveMartket", "Cleaning Database");
+
+		db = getWritableDatabase();
+
+		String DROP_TABLE_ITEMS = "DROP TABLE IF EXISTS " + TABLE_ITEMS;
+		String DROP_TABLE_GROUPS = "DROP TABLE IF EXISTS " + TABLE_GROUPS;
+		String DROP_TABLE_CATEGORY = "DROP TABLE IF EXISTS " + TABLE_CATEGORIES;
+		String DROP_TABLE_MARKET = "DROP TABLE IF EXISTS " + TABLE_MARKET_PRICE;
+		String DROP_TABLE_HISTORY = "DROP TABLE IF EXISTS " + TABLE_PRICING_HISTORY;
+		String DROP_TABLE_ITEM_GROUPS = "DROP TABLE IF EXISTS " + TABLE_GROUP_ITEMS;
+		String DROP_TABLE_CATEGORY_GROUPS = "DROP TABLE IF EXISTS " + TABLE_CATEGORY_GROUPS;
+
+		db.execSQL(DROP_TABLE_CATEGORY_GROUPS);
+		db.execSQL(DROP_TABLE_ITEM_GROUPS);
+		db.execSQL(DROP_TABLE_HISTORY);
+		db.execSQL(DROP_TABLE_MARKET);
+		db.execSQL(DROP_TABLE_CATEGORY);
+		db.execSQL(DROP_TABLE_GROUPS);
+		db.execSQL(DROP_TABLE_ITEMS);
+
+		createDb(db);
 	}
 
 	private void createDb(SQLiteDatabase sqLiteDatabase) {
@@ -101,45 +136,10 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 		Log.i("EveMarket", "Created Category Groups Table");
 	}
 
-	public void cleanSlate() {
-
-		Log.d("EveMartket", "Cleaning Database");
-
-		db = getWritableDatabase();
-
-		String DROP_TABLE_ITEMS = "DROP TABLE IF EXISTS " + TABLE_ITEMS;
-		String DROP_TABLE_GROUPS = "DROP TABLE IF EXISTS " + TABLE_GROUPS;
-		String DROP_TABLE_CATEGORY = "DROP TABLE IF EXISTS " + TABLE_CATEGORIES;
-		String DROP_TABLE_MARKET = "DROP TABLE IF EXISTS " + TABLE_MARKET_PRICE;
-		String DROP_TABLE_HISTORY = "DROP TABLE IF EXISTS " + TABLE_PRICING_HISTORY;
-		String DROP_TABLE_ITEM_GROUPS = "DROP TABLE IF EXISTS " + TABLE_GROUP_ITEMS;
-		String DROP_TABLE_CATEGORY_GROUPS = "DROP TABLE IF EXISTS " + TABLE_CATEGORY_GROUPS;
-
-		db.execSQL(DROP_TABLE_CATEGORY_GROUPS);
-		db.execSQL(DROP_TABLE_ITEM_GROUPS);
-		db.execSQL(DROP_TABLE_HISTORY);
-		db.execSQL(DROP_TABLE_MARKET);
-		db.execSQL(DROP_TABLE_CATEGORY);
-		db.execSQL(DROP_TABLE_GROUPS);
-		db.execSQL(DROP_TABLE_ITEMS);
-
-		createDb(db);
-	}
-
 	@Override
 	public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 		Log.i("EveMarket", "-------------------------------------------------------------- onUpgrade called");
 		createDb(sqLiteDatabase);
-	}
-
-	@Override
-	public String getDatabaseName() {
-		return DATABASE_NAME;
-	}
-
-	@Override
-	public synchronized void close() {
-		super.close();
 	}
 
 	// When called, the app will call the EVE url to get the latest info on the provided item id
