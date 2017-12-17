@@ -47,22 +47,17 @@ public class SharedPreference {
 	public void addFavourite(Context context, Item item) {
 		List<Item> items = getFavourites(context);
 		if(items == null) {
-			Log.e("EveMarketHub", "items is null");
 			items = new ArrayList<>();
 		} else if(items.size() < 5) {// Only allowing 5 favourites at this time
-			Log.e("EveMarketHub", "items less than 5");
 			if(isFavourite(context, item)) {
 				Toaster.toastLong("Item is already a favourite");
 			} else {
-				Log.e("EveMarketHub", "added item " + item.getId());
 				items.add(item);
 				Toaster.toast("Item added to favourites");
 			}
 		} else {
-			Log.e("EveMarketHub", "Cannot add item");
 			Toaster.toastLong("Cannot add any more favourites");
 		}
-		Log.e("EveMarketHub", "about to save items");
 		saveFavourites(context, items);
 	}
 
