@@ -23,89 +23,89 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		drawer.addDrawerListener(toggle);
+		toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+		NavigationView navigationView = findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
 
-        generateFavourites();
+		generateFavourites();
 
-    }
+	}
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START))
-            drawer.closeDrawer(GravityCompat.START);
-        else
-            super.onBackPressed();
-    }
+	@Override
+	public void onBackPressed() {
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		if(drawer.isDrawerOpen(GravityCompat.START)) drawer.closeDrawer(GravityCompat.START);
+		else super.onBackPressed();
+	}
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
+	@Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+		int id = menuItem.getItemId();
 
-        Intent intent;
+		Intent intent;
 
-        if (id == R.id.nav_manage) {
-            intent = new Intent(this, ItemDetails.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_account) {
+		if(id == R.id.nav_manage) {
+			intent = new Intent(this, ItemDetails.class);
+			startActivity(intent);
+		} else if(id == R.id.nav_account) {
+			//            TODO
 
-        } else if (id == R.id.nav_share) {
+			//Open Account Activity
 
-        } else if (id == R.id.nav_send) {
+		} else if(id == R.id.nav_share) {
 
-        } else
-            intent = new Intent(this, ItemDetails.class);
+		} else if(id == R.id.nav_send) {
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        menuItem.setChecked(false);
-        return true;
-    }
+		} else intent = new Intent(this, ItemDetails.class);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        generateFavourites();
-    }
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		menuItem.setChecked(false);
+		return true;
+	}
 
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, ItemDetails.class);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		generateFavourites();
+	}
 
-        startActivity(intent);
-    }
+	public void sendMessage(View view) {
+		Intent intent = new Intent(this, ItemDetails.class);
 
-    public void sendToItemList(View view) {
-        Intent intent = new Intent(this, ItemsList.class);
-        startActivity(intent);
-    }
+		startActivity(intent);
+	}
 
-    private void generateFavourites() {
+	public void sendToItemList(View view) {
+		Intent intent = new Intent(this, ItemsList.class);
+		startActivity(intent);
+	}
 
-        SharedPreference preference = new SharedPreference();
+	private void generateFavourites() {
 
-        List<Item> fav_items = preference.getFavourites(this);
+		SharedPreference preference = new SharedPreference();
 
-        RecyclerView rv = findViewById(R.id.favourite_list);
-        rv.setHasFixedSize(true);
+		List<Item> fav_items = preference.getFavourites(this);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        rv.setLayoutManager(layoutManager);
+		RecyclerView rv = findViewById(R.id.favourite_list);
+		rv.setHasFixedSize(true);
 
-        RVFavAdapter adapter = new RVFavAdapter(this, fav_items, preference);
-        rv.setAdapter(adapter);
-    }
+		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+		rv.setLayoutManager(layoutManager);
+
+		RVFavAdapter adapter = new RVFavAdapter(this, fav_items, preference);
+		rv.setAdapter(adapter);
+	}
 }

@@ -8,16 +8,16 @@ import android.os.AsyncTask;
 
 class JsonTask extends AsyncTask<String, String, String> {
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+	@Override
+	protected void onPostExecute(String s) {
+		super.onPostExecute(s);
 
 
-    }
+	}
 
-    @Override
-    protected String doInBackground(String... strings) {
+	@Override
+	protected String doInBackground(String... strings) {
 
-        return null;
-    }
+		return null;
+	}
 }

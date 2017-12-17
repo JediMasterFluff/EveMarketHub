@@ -27,134 +27,131 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class ItemDetails extends AppCompatActivity {
 
-    private SharedPreference preference;
-    private Item item;
+	private SharedPreference preference;
+	private Item item;
 	private int id;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_details_bar);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_item_details_bar);
 
-        Toolbar toolbar = findViewById(R.id.items_toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+		Toolbar toolbar = findViewById(R.id.items_toolbar);
+		toolbar.setTitle("");
+		setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        TextView priceView = findViewById(R.id.itemPriceView);
+		TextView priceView = findViewById(R.id.itemPriceView);
 
-        preference = new SharedPreference();
+		preference = new SharedPreference();
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
 
-        if (extras != null)
-            id = extras.getInt("Item ID");
-        else
-            id = 0;
+		if(extras != null) id = extras.getInt("Item ID");
+		else id = 0;
 
-        item = new Item(); //getItem(id);
+		item = new Item(); //getItem(id);
 
-        GraphView graph = findViewById(R.id.itemHistoryGraph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();//getPricingHistory(id);
+		GraphView graph = findViewById(R.id.itemHistoryGraph);
+		LineGraphSeries<DataPoint> series = new LineGraphSeries<>();//getPricingHistory(id);
 
-        series.setTitle("Random Curve 1");
-        series.setColor(Color.GREEN);
-        series.setDrawDataPoints(true);
-        series.setDataPointsRadius(10);
-        series.setThickness(8);
+		series.setTitle("Random Curve 1");
+		series.setColor(Color.GREEN);
+		series.setDrawDataPoints(true);
+		series.setDataPointsRadius(10);
+		series.setThickness(8);
 
-        graph.setTitleColor(Color.WHITE);
-        graph.setBackgroundColor(getResources().getColor(R.color.colorGraphBackground, getTheme()));
-        graph.addSeries(series);
+		graph.setTitleColor(Color.WHITE);
+		graph.setBackgroundColor(getResources().getColor(R.color.colorGraphBackground, getTheme()));
+		graph.addSeries(series);
 
-        double price = item.getPrice();
-        priceView.setTextColor(getTextColour(id));
-        priceView.setText(String.format(Locale.CANADA, "%1$,.2f", price));
-    }
+		double price = item.getPrice();
+		priceView.setTextColor(getTextColour(id));
+		priceView.setText(String.format(Locale.CANADA, "%1$,.2f", price));
+	}
 
-    private int getTextColour(int id) {
-        double oldPrice = getOldPrice(id);
-        if (oldPrice > 0) {
-            return getResources().getColor(R.color.colorNegativePriceDiff, getTheme());
-        } else if (oldPrice < 0) {
-            return getResources().getColor(R.color.colorPositivePriceDiff, getTheme());
-        } else {
-            return getResources().getColor(R.color.colorNoPriceDiff, getTheme());
-        }
-    }
+	private int getTextColour(int id) {
+		double oldPrice = getOldPrice(id);
+		if(oldPrice > 0) {
+			return getResources().getColor(R.color.colorNegativePriceDiff, getTheme());
+		} else if(oldPrice < 0) {
+			return getResources().getColor(R.color.colorPositivePriceDiff, getTheme());
+		} else {
+			return getResources().getColor(R.color.colorNoPriceDiff, getTheme());
+		}
+	}
 
-    private Item getItem(int id) {
-        EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(this);
-        JSONObject obj = handler.getItem(id);
+	private Item getItem(int id) {
+		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(this);
+		JSONObject obj = handler.getItem(id);
 
-        Item item = new Item();
-        try {
-            item.setName(obj.getString("name"));
-            item.setId(id);
-            item.setPrice(obj.getDouble("price"));
-            item.setCategory_name(obj.getString("category"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return item;
-    }
+		Item item = new Item();
+		try {
+			item.setName(obj.getString("name"));
+			item.setId(id);
+			item.setPrice(obj.getDouble("price"));
+			item.setCategory_name(obj.getString("category"));
+		} catch(JSONException e) {
+			e.printStackTrace();
+		}
+		return item;
+	}
 
-    private double getOldPrice(int id) {
-        return 0.0;
-    }
+	private double getOldPrice(int id) {
+		return 0.0;
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_items_detail_bar_menu, menu);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_items_detail_bar_menu, menu);
 
-	    MenuItem favItem = menu.getItem(id);
+		MenuItem favItem = menu.getItem(id);
 
-        if (preference.isFavourite(this, item))
-            favItem.setIcon(R.drawable.ic_favourite);
+		if(preference.isFavourite(this, item)) favItem.setIcon(R.drawable.ic_favourite);
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.favourite_item:
-                // check if item is already favourited
-                // if yes, remove from favourite list and change icon to ic_unfavourite
-                // else, add to favourites list and change icon to ic_favourite
-                if (preference.isFavourite(this, item)) { // if this item is already a fav
-	                Log.e("EveMarketHub", "Removing From Favs");
-	                preference.removeFavourite(this, item);
-	                menuItem.setIcon(R.drawable.ic_unfavourite);
-                } else {
-	                Log.e("EvemMarketHub", "Adding to Favs");
-	                preference.addFavourite(this, item);
-                    menuItem.setIcon(R.drawable.ic_favourite);
-                }
-                return true;
-            case R.id.refresh_item:
-                return true;
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return true;
-        }
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem) {
+		switch(menuItem.getItemId()) {
+			case R.id.favourite_item:
+				// check if item is already favourited
+				// if yes, remove from favourite list and change icon to ic_unfavourite
+				// else, add to favourites list and change icon to ic_favourite
+				if(preference.isFavourite(this, item)) { // if this item is already a fav
+					Log.e("EveMarketHub", "Removing From Favs");
+					preference.removeFavourite(this, item);
+					menuItem.setIcon(R.drawable.ic_unfavourite);
+				} else {
+					Log.e("EvemMarketHub", "Adding to Favs");
+					preference.addFavourite(this, item);
+					menuItem.setIcon(R.drawable.ic_favourite);
+				}
+				return true;
+			case R.id.refresh_item:
+				return true;
+			case android.R.id.home:
+				finish();
+				return true;
+			default:
+				return true;
+		}
+	}
 
-    private LineGraphSeries<DataPoint> getPricingHistory(int id) {
-        EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(this);
+	private LineGraphSeries<DataPoint> getPricingHistory(int id) {
+		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(this);
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-        Map<Float, Float> map = handler.gerPricingHistory(id);
+		LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+		Map<Float, Float> map = handler.gerPricingHistory(id);
 
-        for (Map.Entry<Float, Float> point : map.entrySet()) {
-            series.appendData(new DataPoint(point.getKey(), point.getValue()), false, map.size(), true);
-        }
-        return series;
-    }
+		for(Map.Entry<Float, Float> point : map.entrySet()) {
+			series.appendData(new DataPoint(point.getKey(), point.getValue()), false, map.size(), true);
+		}
+		return series;
+	}
 
 }

@@ -15,49 +15,49 @@ import ca.prairesunapplications.evemarkethub.database.LoadDb;
 
 public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 
-    private final ProgressBar progressBar;
-    private final LoadingTaskFinishedListener finishedListener;
-    private final Context myContext;
+	private final ProgressBar progressBar;
+	private final LoadingTaskFinishedListener finishedListener;
+	private final Context myContext;
 
-    public LoadingTask(ProgressBar progressBar, @Nullable LoadingTaskFinishedListener finishedListener, Context context) {
-        this.progressBar = progressBar;
-        this.finishedListener = finishedListener;
-        this.myContext = context;
-    }
+	public LoadingTask(ProgressBar progressBar, @Nullable LoadingTaskFinishedListener finishedListener, Context context) {
+		this.progressBar = progressBar;
+		this.finishedListener = finishedListener;
+		this.myContext = context;
+	}
 
-    @Override
-    protected Integer doInBackground(String... strings) {
-        Log.i("EveMarketHub", "Starting task");
-        if (resourcesExist()) {
-            // downloadResources();
-        }
-        return 1234;
-    }
+	@Override
+	protected Integer doInBackground(String... strings) {
+		Log.i("EveMarketHub", "Starting task");
+		if(resourcesExist()) {
+			// downloadResources();
+		}
+		return 1234;
+	}
 
-    private void downloadResources() {
-        EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
-        handler.cleanSlate();
-        new LoadDb(myContext);
-    }
+	private void downloadResources() {
+		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
+		handler.cleanSlate();
+		new LoadDb(myContext);
+	}
 
-    private boolean resourcesExist() {
-        return true;
-    }
+	private boolean resourcesExist() {
+		return true;
+	}
 
-    @Override
-    protected void onProgressUpdate(Integer... integers) {
-        super.onProgressUpdate(integers);
-        progressBar.setProgress(integers[0]);
-    }
+	@Override
+	protected void onProgressUpdate(Integer... integers) {
+		super.onProgressUpdate(integers);
+		progressBar.setProgress(integers[0]);
+	}
 
-    protected void onPostExecute(Integer integer) {
-        super.onPostExecute(integer);
-        finishedListener.onTaskFinished();
+	protected void onPostExecute(Integer integer) {
+		super.onPostExecute(integer);
+		finishedListener.onTaskFinished();
 
-    }
+	}
 
 
-    public interface LoadingTaskFinishedListener {
-        void onTaskFinished();
-    }
+	public interface LoadingTaskFinishedListener {
+		void onTaskFinished();
+	}
 }

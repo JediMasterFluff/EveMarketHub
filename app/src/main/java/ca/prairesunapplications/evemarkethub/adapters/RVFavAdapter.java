@@ -21,7 +21,7 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 /**
  * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to respond to move and
  * dismiss events from a {@link android.support.v7.widget.helper.ItemTouchHelper}.
- *
+ * <p>
  * Used to display a users selected favourited items on the main screen.
  *
  * @author Christian Bell (Fluffy)
@@ -29,76 +29,76 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteViewHolder> {
 
-    private final List<Item> favourites;
+	private final List<Item> favourites;
 
-    private SharedPreference preference;
+	private SharedPreference preference;
 
-    private Context mContext;
+	private Context mContext;
 
-    public RVFavAdapter(Context context, List<Item> items, SharedPreference preference) {
-        this.favourites = items;
-        this.mContext = context;
-        this.preference = preference;
-    }
+	public RVFavAdapter(Context context, List<Item> items, SharedPreference preference) {
+		this.favourites = items;
+		this.mContext = context;
+		this.preference = preference;
+	}
 
-    @Override
-    public FavouriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favourite_item_card, parent, false);
-        return new FavouriteViewHolder(v);
-    }
+	@Override
+	public FavouriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favourite_item_card, parent, false);
+		return new FavouriteViewHolder(v);
+	}
 
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public void onBindViewHolder(final FavouriteViewHolder holder, int position) {
+	@SuppressLint("ClickableViewAccessibility")
+	@Override
+	public void onBindViewHolder(final FavouriteViewHolder holder, int position) {
 
-        Item i = getItem(position);
+		Item i = getItem(position);
 
-        holder.cv.setTag(i.getId());
-        final int id = (Integer) holder.cv.getTag();
-        holder.cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, ItemDetails.class);
-                intent.putExtra("Item ID", id);
-                context.startActivity(intent);
-
-
-            }
-        });
-
-        holder.name.setText(i.getName());
-        holder.category.setText(i.getCategory_name());
-        holder.price.setText(String.format(Locale.CANADA, "%1$,.2f", i.getPrice()));
-    }
+		holder.cv.setTag(i.getId());
+		final int id = (Integer) holder.cv.getTag();
+		holder.cv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Context context = view.getContext();
+				Intent intent = new Intent(context, ItemDetails.class);
+				intent.putExtra("Item ID", id);
+				context.startActivity(intent);
 
 
-    private Item getItem(int position) {
-        return favourites.get(position);
-    }
+			}
+		});
 
-    @Override
-    public int getItemCount() {
-        return favourites.size();
-    }
+		holder.name.setText(i.getName());
+		holder.category.setText(i.getCategory_name());
+		holder.price.setText(String.format(Locale.CANADA, "%1$,.2f", i.getPrice()));
+	}
 
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
 
-    public static class FavouriteViewHolder extends RecyclerView.ViewHolder {
-        final CardView cv;
-        final TextView name;
-        final TextView category;
-        final TextView price;
+	private Item getItem(int position) {
+		return favourites.get(position);
+	}
 
-        public FavouriteViewHolder(View itemView) {
-            super(itemView);
-            cv = itemView.findViewById(R.id.fav_cv);
-            name = itemView.findViewById(R.id.fav_item_name);
-            category = itemView.findViewById(R.id.fav_item_category);
-            price = itemView.findViewById(R.id.fav_item_price);
-        }
-    }
+	@Override
+	public int getItemCount() {
+		return favourites.size();
+	}
+
+	@Override
+	public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+		super.onAttachedToRecyclerView(recyclerView);
+	}
+
+	public static class FavouriteViewHolder extends RecyclerView.ViewHolder {
+		final CardView cv;
+		final TextView name;
+		final TextView category;
+		final TextView price;
+
+		public FavouriteViewHolder(View itemView) {
+			super(itemView);
+			cv = itemView.findViewById(R.id.fav_cv);
+			name = itemView.findViewById(R.id.fav_item_name);
+			category = itemView.findViewById(R.id.fav_item_category);
+			price = itemView.findViewById(R.id.fav_item_price);
+		}
+	}
 }
