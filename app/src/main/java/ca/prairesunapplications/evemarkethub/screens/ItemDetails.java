@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class ItemDetails extends AppCompatActivity {
 
     private SharedPreference preference;
     private Item item;
+	private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,6 @@ public class ItemDetails extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
-        int id;
         if (extras != null)
             id = extras.getInt("Item ID");
         else
@@ -109,7 +110,7 @@ public class ItemDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_items_detail_bar_menu, menu);
 
-        MenuItem favItem = menu.getItem(0);
+	    MenuItem favItem = menu.getItem(id);
 
         if (preference.isFavourite(this, item))
             favItem.setIcon(R.drawable.ic_favourite);
@@ -125,10 +126,12 @@ public class ItemDetails extends AppCompatActivity {
                 // if yes, remove from favourite list and change icon to ic_unfavourite
                 // else, add to favourites list and change icon to ic_favourite
                 if (preference.isFavourite(this, item)) { // if this item is already a fav
-                    preference.removeFavourite(this, item);
-                    menuItem.setIcon(R.drawable.ic_unfavourite);
+	                Log.e("EveMarketHub", "Removing From Favs");
+	                preference.removeFavourite(this, item);
+	                menuItem.setIcon(R.drawable.ic_unfavourite);
                 } else {
-                    preference.addFavourite(this, item);
+	                Log.e("EvemMarketHub", "Adding to Favs");
+	                preference.addFavourite(this, item);
                     menuItem.setIcon(R.drawable.ic_favourite);
                 }
                 return true;

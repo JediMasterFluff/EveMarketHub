@@ -2,6 +2,7 @@ package ca.prairesunapplications.evemarkethub.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -18,92 +19,92 @@ import xdroid.toaster.Toaster;
 
 public class SharedPreference {
 
-    public static final String FAV_PREF_NAME = "EVEMARKETHUB_FAVOURITES";
-    public static final String USER_PREF_NAME = "EVEMARKETHUB_USER";
-    public static final String DATA_PREF_NAME = "EVEMARKET_DATA";
-    private static final String FAVS = "Item_Favourites";
+	public static final String FAV_PREF_NAME = "EVEMARKETHUB_FAVOURITES";
+	public static final String USER_PREF_NAME = "EVEMARKETHUB_USER";
+	public static final String DATA_PREF_NAME = "EVEMARKETHUB_DATA";
+	private static final String FAVS = "Item_Favourites";
 
-    public SharedPreference() {
-        super();
-    }
+	public SharedPreference() {
+		super();
+	}
 
-    public void saveFavourites(Context context, List<Item> items) {
-        SharedPreferences settings;
-        SharedPreferences.Editor editor;
+	public void saveFavourites(Context context, List<Item> items) {
+		SharedPreferences settings;
+		SharedPreferences.Editor editor;
+		Log.e("EveMarketHub", "getting settings from preference");
+		settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
 
-        settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
+		editor = settings.edit();
 
-        editor = settings.edit();
+		Gson gson = new Gson();
+		String json = gson.toJson(items);
 
-        Gson gson = new Gson();
-        String json = gson.toJson(items);
+		editor.putString(FAVS, json);
 
-        editor.putString(FAVS, json);
+		editor.apply();
+	}
 
-        editor.apply();
-    }
+	public void addFavourite(Context context, Item item) {
+		List<Item> items = getFavourites(context);
+		if(items == null) {
+			Log.e("EveMarketHub", "items is null");
+			items = new ArrayList<>();
+		} else if(items.size() < 5) {// Only allowing 5 favourites at this time
+			Log.e("EveMarketHub", "items less than 5");
+			if(isFavourite(context, item)) {
+				Toaster.toastLong("Item is already a favourite");
+			} else {
+				Log.e("EveMarketHub", "added item " + item.getId());
+				items.add(item);
+				Toaster.toast("Item added to favourites");
+			}
+		} else {
+			Log.e("EveMarketHub", "Cannot add item");
+			Toaster.toastLong("Cannot add any more favourites");
+		}
+		Log.e("EveMarketHub", "about to save items");
+		saveFavourites(context, items);
+	}
 
-    public void addFavourite(Context context, Item item) {
-        List<Item> items = getFavourites(context);
-        if (items == null) {
-            items = new ArrayList<>();
-        } else if (items.size() < 5) {// Only allowing 5 favourites at this time
-            for (Item i : items) {
-                if (i.getId() == item.getId()) {
-                    Toaster.toastLong("Item already a favourite");
-                    break;
-                }
-                items.add(item);
-                Toaster.toast("Item added to favourites");
-            }
-        } else
-            Toaster.toastLong("Cannot add any more favourites");
+	public void removeFavourite(Context context, Item item) {
+		ArrayList<Item> items = getFavourites(context);
+		if(items != null) {
+			for(Item i : items) {
+				if(i.getId() == item.getId()) {
+					items.remove(i);
+					Toaster.toast("Item Removed From Favourites");
+					saveFavourites(context, items);
+				}
+			}
+		}
+	}
 
-        saveFavourites(context, items);
-    }
+	public ArrayList<Item> getFavourites(Context context) {
+		SharedPreferences settings;
+		List<Item> favs;
 
-    public void removeFavourite(Context context, Item item) {
-        ArrayList<Item> items = getFavourites(context);
-        if (items != null) {
-            for (Item i : items) {
-                if (i.getId() == item.getId()) {
-                    items.remove(i);
-                    Toaster.toast("Item Removed From Favourites");
-                    saveFavourites(context, items);
-                }
-            }
-        }
-    }
+		settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
 
-    public ArrayList<Item> getFavourites(Context context) {
-        SharedPreferences settings;
-        List<Item> favs;
+		if(settings.contains(FAVS)) {
+			String json = settings.getString(FAVS, null);
+			Gson gson = new Gson();
+			Item[] items = gson.fromJson(json, Item[].class);
 
-        settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
+			favs = Arrays.asList(items);
+			favs = new ArrayList<>(favs);
+		} else return new ArrayList<>();
 
-        if (settings.contains(FAVS)) {
-            String json = settings.getString(FAVS, null);
-            Gson gson = new Gson();
-            Item[] items = gson.fromJson(json, Item[].class);
+		return (ArrayList<Item>) favs;
+	}
 
-            favs = Arrays.asList(items);
-            favs = new ArrayList<>(favs);
-        } else
-            return new ArrayList<>();
+	public boolean isFavourite(Context context, Item item) {
 
-        return (ArrayList<Item>) favs;
-    }
-
-    public boolean isFavourite(Context context, Item item) {
-
-        ArrayList<Item> items = getFavourites(context);
-        if (items != null) {
-            for (Item i : items) {
-                if (i.getId() == item.getId())
-                    return true;
-            }
-            return false;
-        } else
-            return false;
-    }
+		ArrayList<Item> items = getFavourites(context);
+		if(items != null) {
+			for(Item i : items) {
+				if(i.getId() == item.getId()) return true;
+			}
+			return false;
+		} else return false;
+	}
 }
