@@ -82,7 +82,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_station_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/app_side_padding"

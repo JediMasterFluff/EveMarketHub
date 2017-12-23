@@ -14,14 +14,16 @@ import ca.prairesunapplications.evemarkethub.objects.Item;
 import xdroid.toaster.Toaster;
 
 /**
+ * EveMarketHub SharedPreferences class to handle all operations to the preference for the app
+ *
  * Created by fluffy on 21/11/17.
  */
 
 public class SharedPreference {
 
-	public static final String FAV_PREF_NAME = "EVEMARKETHUB_FAVOURITES";
-	public static final String USER_PREF_NAME = "EVEMARKETHUB_USER";
-	public static final String DATA_PREF_NAME = "EVEMARKETHUB_DATA";
+	private static final String FAV_PREF_NAME = "EVEMARKETHUB_FAVOURITES";
+	private static final String USER_PREF_NAME = "EVEMARKETHUB_USER";
+	private static final String DATA_PREF_NAME = "EVEMARKETHUB_DATA";
 	private static final String FAVS = "Item_Favourites";
 
 	public SharedPreference() {

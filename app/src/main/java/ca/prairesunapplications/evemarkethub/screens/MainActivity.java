@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -20,6 +21,7 @@ import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.adapters.RVFavAdapter;
 import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
+import xdroid.toaster.Toaster;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,6 +59,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 		RVFavAdapter adapter = new RVFavAdapter(this, fav_items, preference);
 		rv.setAdapter(adapter);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main_bar_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch(item.getItemId()) {
+			case R.id.refresh_lists:
+				//TODO Create data refresh logic - will need to pull the preference lists for objects to refresh
+				Toaster.toastLong("Will refresh both lists");
+
+		}
+
+		return true;
+
 	}
 
 	@Override

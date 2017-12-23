@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -17,12 +19,15 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 
 import ca.prairesunapplications.evemarkethub.R;
+import ca.prairesunapplications.evemarkethub.adapters.ItemStationAdapter;
 import ca.prairesunapplications.evemarkethub.database.EveMarketDatabaseHandler;
 import ca.prairesunapplications.evemarkethub.objects.Item;
+import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class ItemDetails extends AppCompatActivity {
@@ -54,6 +59,21 @@ public class ItemDetails extends AppCompatActivity {
 		else id = 0;
 
 		item = new Item(); //getItem(id);
+
+		ArrayList<Station> data = new ArrayList<>();
+		{
+			for(int i = 0; i < 13; i++) {
+				Station station = new Station();
+				station.setName("name" + i);
+				station.setPrice(i * 888.98);
+				data.add(station);
+			}
+		}
+		RecyclerView rv = findViewById(R.id.item_station_view);
+		int columns = 4;
+		rv.setLayoutManager(new GridLayoutManager(this, columns));
+		ItemStationAdapter adapter = new ItemStationAdapter(this, data);
+		rv.setAdapter(adapter);
 
 		GraphView graph = findViewById(R.id.itemHistoryGraph);
 		LineGraphSeries<DataPoint> series = new LineGraphSeries<>();//getPricingHistory(id);
@@ -133,13 +153,13 @@ public class ItemDetails extends AppCompatActivity {
 				}
 				return true;
 			case R.id.refresh_item:
-				return true;
+
 			case android.R.id.home:
 				finish();
-				return true;
 			default:
-				return true;
+
 		}
+		return true;
 	}
 
 	private LineGraphSeries<DataPoint> getPricingHistory(int id) {

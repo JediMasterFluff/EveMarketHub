@@ -10,6 +10,8 @@ import ca.prairesunapplications.evemarkethub.database.EveMarketDatabaseHandler;
 import ca.prairesunapplications.evemarkethub.database.LoadDb;
 
 /**
+ * An Asyncronous task to handle app startup loading. Will be used to create DB, check for DB updates
+ * and any other asset maintenance
  * Created by fluffy on 18/11/17.
  */
 

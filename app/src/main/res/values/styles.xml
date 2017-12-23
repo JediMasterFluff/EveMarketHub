@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -23,17 +23,17 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AppTheme.ActionBarStyle" parent="AppTheme">
+        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.TitleTextStyle</item>
     </style>
-
     <style name="AppTheme.ActionBar.TitleTextStyle" parent="AppTheme.ActionBarStyle">
         <item name="android:textColor">#fff</item>
     </style>
 
-    <style name="AppTheme.ActionBarStyle" parent="AppTheme">
-        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.TitleTextStyle</item>
+    <style name="AppTheme.NavigationView" parent="AppTheme">
+        <item name="android:elevation">@dimen/design_navigation_elevation</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:maxWidth">@dimen/design_navigation_max_width</item>
     </style>
 
 </resources>

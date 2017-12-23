@@ -1,5 +1,7 @@
 package ca.prairesunapplications.evemarkethub.objects;
 
+import java.util.Collection;
+
 import ca.prairesunapplications.evemarkethub.R;
 
 /**
@@ -16,6 +18,7 @@ public class Item {
 	private String category_name;
 	private double price;
 	private double average_price;
+	private Collection<Integer> station_ids;
 
 	public Item() {
 		this.id = 0;
@@ -111,5 +114,13 @@ public class Item {
 
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
+	}
+
+	public void addStation(int id) {
+		if(!station_ids.contains(id)) station_ids.add(id);
+	}
+
+	public Collection<Integer> getStationIds() {
+		return station_ids;
 	}
 }

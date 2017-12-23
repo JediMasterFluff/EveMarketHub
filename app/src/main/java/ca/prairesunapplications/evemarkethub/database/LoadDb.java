@@ -1,7 +1,6 @@
 package ca.prairesunapplications.evemarkethub.database;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +69,7 @@ public class LoadDb {
 	 *
 	 * @return finished constructed url string that matches the EVE API specs
 	 */
-	private String buildRequestURL(@NonNull int i) {
+	private String buildRequestURL(int i) {
 
 		String url;
 		String type = "";
@@ -130,7 +129,7 @@ public class LoadDb {
 			reader = new BufferedReader(new InputStreamReader(is));
 
 			StringBuilder buffer = new StringBuilder();
-			String line = "";
+			String line;
 
 			while((line = reader.readLine()) != null) {
 				buffer.append(line).append("\n");

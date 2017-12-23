@@ -86,13 +86,13 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
 		super.onAttachedToRecyclerView(recyclerView);
 	}
 
-	public static class FavouriteViewHolder extends RecyclerView.ViewHolder {
+	static class FavouriteViewHolder extends RecyclerView.ViewHolder {
 		final CardView cv;
 		final TextView name;
 		final TextView category;
 		final TextView price;
 
-		public FavouriteViewHolder(View itemView) {
+		FavouriteViewHolder(View itemView) {
 			super(itemView);
 			cv = itemView.findViewById(R.id.fav_cv);
 			name = itemView.findViewById(R.id.fav_item_name);

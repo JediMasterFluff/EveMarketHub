@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EveMarketHub</string>
     <string name="item_details_item_name">ItemName</string>
-    <string name="item_details_default_price">1000000</string>
+    <string name="item_details_default_price">1000000000000</string>
     <string name="item_details_category_default">Category</string>
     <string name="item_details_descrip_default">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.</string>
 
@@ -9,6 +9,10 @@
     <string name="nav_user_email_default">android.studio@android.com</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="favourites_header">Favourites</string>
+    <string name="favourites_header">Favourite Items</string>
     <string name="item_details_last_updated_default">25/11/17 7:03PM</string>
+    <string name="wallet_balence">1000000000000</string>
+    <string name="stations_header">Favourite Stations</string>
+    <string name="default_station_item_price">123456.58</string>
+    <string name="default_station_item_name">Station Name</string>
 </resources>

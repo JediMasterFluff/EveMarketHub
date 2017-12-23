@@ -80,7 +80,7 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 
 	public void cleanSlate() {
 
-		Log.d("EveMartket", "Cleaning Database");
+		Log.d("EveMarket", "Cleaning Database");
 
 		db = getWritableDatabase();
 
@@ -147,7 +147,7 @@ public class EveMarketDatabaseHandler extends SQLiteOpenHelper {
 		return true;
 	}
 
-	public void addItem(int id, String name, String description) {
+	void addItem(int id, String name, String description) {
 		db = getWritableDatabase();
 		String sql = "INSERT INTO " + TABLE_ITEMS + " VALUES (" + id + ", '" + name + "', '" + description + "')";
 
