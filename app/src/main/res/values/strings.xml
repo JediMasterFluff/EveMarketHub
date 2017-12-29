@@ -15,4 +15,5 @@
     <string name="stations_header">Favourite Stations</string>
     <string name="default_station_item_price">123456.58</string>
     <string name="default_station_item_name">Station Name</string>
+    <string name="default_fav_station_name">Station Name</string>
 </resources>

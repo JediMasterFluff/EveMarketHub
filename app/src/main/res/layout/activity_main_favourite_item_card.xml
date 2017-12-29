@@ -33,7 +33,7 @@
                 android:padding="2dp"
                 android:text="@string/item_details_item_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/colorBackground"
+                android:textColor="@color/colorSearchBorder"
                 app:layout_constraintBottom_toTopOf="@+id/fav_item_category"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -49,7 +49,7 @@
                 android:padding="2dp"
                 android:text="@string/item_details_category_default"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/colorGraphBackground"
+                android:textColor="@color/cardview_light_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

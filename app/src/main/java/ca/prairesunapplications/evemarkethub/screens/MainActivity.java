@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,11 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.R;
+import ca.prairesunapplications.evemarkethub.adapters.FavStationAdapter;
 import ca.prairesunapplications.evemarkethub.adapters.RVFavAdapter;
 import ca.prairesunapplications.evemarkethub.objects.Item;
+import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 import xdroid.toaster.Toaster;
 
@@ -41,11 +45,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-		generateFavourites();
+		generateItemFavourites();
+		generateStationFavourites();
 
 	}
 
-	private void generateFavourites() {
+	private void generateStationFavourites() {
+		//TODO Create Station favourite logic in SharedPreferences
+
+		//For now, filling with default data to test views
+
+		ArrayList<Station> data = new ArrayList<>();
+		for(int i = 0; i < 9; i++) {
+			Station st = new Station("Station " + i, "System Name");
+			data.add(st);
+		}
+
+		RecyclerView rv = findViewById(R.id.stations_list);
+		rv.setHasFixedSize(true);
+
+		int columns = 2;
+		RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, columns);
+		rv.setLayoutManager(layoutManager);
+
+		FavStationAdapter adapter = new FavStationAdapter(this, data);
+		rv.setAdapter(adapter);
+	}
+
+	private void generateItemFavourites() {
 
 		SharedPreference preference = new SharedPreference();
 
@@ -91,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	protected void onResume() {
 		super.onResume();
-		generateFavourites();
+		generateItemFavourites();
 	}
 
 	@Override
