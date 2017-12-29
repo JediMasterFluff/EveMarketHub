@@ -20,7 +20,10 @@
             android:id="@+id/card_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/app_side_padding"
+            android:paddingBottom="2dp"
+            android:paddingEnd="@dimen/app_side_padding"
+            android:paddingStart="@dimen/app_side_padding"
+            android:paddingTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,14 +35,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/default_fav_station_name"
                 android:textColor="@color/colorSearchBorder"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/second_edge_line" />
 
             <TextView
                 android:id="@+id/fav_station_system"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/default_station_system"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fav_station_name" />
 
@@ -48,7 +56,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent=".3" />
+                app:layout_constraintBottom_toTopOf="@+id/second_edge_line"
+                app:layout_constraintGuide_percent=".5" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/second_edge_line"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".6" />
+
+            <TextView
+                android:id="@+id/fav_station_left_block"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/colorPositivePriceDiff"
+                app:layout_constraintBottom_toTopOf="@+id/second_edge_line"
+                app:layout_constraintEnd_toStartOf="@+id/first_edge_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fav_station_right_block"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/cardview_light_background"
+                android:gravity="center"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/colorNegativePriceDiff"
+                app:layout_constraintBottom_toTopOf="@+id/second_edge_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/first_edge_line"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
