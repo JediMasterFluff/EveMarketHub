@@ -3,7 +3,7 @@
     package="ca.prairesunapplications.evemarkethub">
 
     <uses-feature
-        android:name="anddroid.hardware.wifi"
+        android:name="android.hardware.wifi"
         android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,12 +21,14 @@
             android:name=".screens.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".screens.ItemDetails" />
+        <activity
+            android:name=".screens.ItemDetails"
+            android:configChanges="orientation|keyboardHidden" />
         <activity android:name=".screens.ItemsList" />
         <activity
             android:name=".screens.LoadingScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/FullscreenTheme">`
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

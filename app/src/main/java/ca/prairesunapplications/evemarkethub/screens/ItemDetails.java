@@ -1,6 +1,7 @@
 package ca.prairesunapplications.evemarkethub.screens;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class ItemDetails extends AppCompatActivity {
 
 	private SharedPreference preference;
 	private Item item;
+	private TextView priceView;
 	private int id;
 
 	@Override
@@ -48,7 +50,7 @@ public class ItemDetails extends AppCompatActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-		TextView priceView = findViewById(R.id.itemPriceView);
+		priceView = findViewById(R.id.itemPriceView);
 
 		preference = new SharedPreference();
 
@@ -60,6 +62,12 @@ public class ItemDetails extends AppCompatActivity {
 
 		item = new Item(); //getItem(id);
 
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
 		ArrayList<Station> data = new ArrayList<>();
 		{
 			for(int i = 0; i < 13; i++) {
@@ -69,12 +77,13 @@ public class ItemDetails extends AppCompatActivity {
 				data.add(station);
 			}
 		}
-		RecyclerView rv = findViewById(R.id.item_station_view);
-		int columns = 4;
-		rv.setLayoutManager(new GridLayoutManager(this, columns));
-		ItemStationAdapter adapter = new ItemStationAdapter(this, data);
-		rv.setAdapter(adapter);
-
+		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			RecyclerView rv = findViewById(R.id.item_station_view);
+			int columns = 4;
+			rv.setLayoutManager(new GridLayoutManager(this, columns));
+			ItemStationAdapter adapter = new ItemStationAdapter(this, data);
+			rv.setAdapter(adapter);
+		}
 		GraphView graph = findViewById(R.id.itemHistoryGraph);
 		LineGraphSeries<DataPoint> series = new LineGraphSeries<>();//getPricingHistory(id);
 
