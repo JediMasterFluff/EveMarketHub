@@ -22,8 +22,8 @@ public class FavStationAdapter extends RecyclerView.Adapter<FavStationAdapter.Vi
 
 	public static final String STATION_ID = "Station ID";
 
-	ArrayList<Station> data = new ArrayList<>();
-	LayoutInflater inflater;
+	private ArrayList<Station> data = new ArrayList<>();
+	private LayoutInflater inflater;
 
 	public FavStationAdapter(Context context, ArrayList<Station> list) {
 		this.data = list;
@@ -58,11 +58,11 @@ public class FavStationAdapter extends RecyclerView.Adapter<FavStationAdapter.Vi
 		return data.size();
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
+	static class ViewHolder extends RecyclerView.ViewHolder {
 		Station st;
 		final CardView cv;
 
-		public ViewHolder(View view) {
+		ViewHolder(View view) {
 			super(view);
 			cv = view.findViewById(R.id.fav_station_card);
 

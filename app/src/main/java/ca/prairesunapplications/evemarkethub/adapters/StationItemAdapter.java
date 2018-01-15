@@ -48,14 +48,14 @@ public class StationItemAdapter extends RecyclerView.Adapter<StationItemAdapter.
 		return data.size();
 	}
 
-	public class ViewHolder extends RecyclerView.ViewHolder {
+	static class ViewHolder extends RecyclerView.ViewHolder {
 		final CardView cv;
 		final TextView name;
 		final TextView category;
 		final TextView price;
 		final TextView avg_price;
 
-		public ViewHolder(View itemView) {
+		ViewHolder(View itemView) {
 			super(itemView);
 			cv = itemView.findViewById(R.id.station_item_cv);
 			name = itemView.findViewById(R.id.station_item_name);
