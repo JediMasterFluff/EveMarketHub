@@ -41,7 +41,7 @@ public class ItemDetails extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_item_details_bar);
+		setContentView(R.layout.content_item_details);
 
 		Toolbar toolbar = findViewById(R.id.items_toolbar);
 		toolbar.setTitle("");

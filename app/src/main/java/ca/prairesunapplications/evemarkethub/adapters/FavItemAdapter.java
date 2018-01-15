@@ -1,6 +1,5 @@
 package ca.prairesunapplications.evemarkethub.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -26,7 +25,7 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
  * @author Christian Bell (Fluffy)
  */
 
-public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteViewHolder> {
+public class FavItemAdapter extends RecyclerView.Adapter<FavItemAdapter.FavouriteViewHolder> {
 
 	private final List<Item> favourites;
 
@@ -34,7 +33,7 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
 
 	private Context mContext;
 
-	public RVFavAdapter(Context context, List<Item> items, SharedPreference preference) {
+	public FavItemAdapter(Context context, List<Item> items, SharedPreference preference) {
 		this.favourites = items;
 		this.mContext = context;
 		this.preference = preference;
@@ -42,11 +41,10 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
 
 	@Override
 	public FavouriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_favourite_item_card, parent, false);
+		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_favourite_item, parent, false);
 		return new FavouriteViewHolder(v);
 	}
 
-	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public void onBindViewHolder(final FavouriteViewHolder holder, int position) {
 
@@ -61,8 +59,6 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
 				Intent intent = new Intent(context, ItemDetails.class);
 				intent.putExtra("Item ID", id);
 				context.startActivity(intent);
-
-
 			}
 		});
 
@@ -70,7 +66,6 @@ public class RVFavAdapter extends RecyclerView.Adapter<RVFavAdapter.FavouriteVie
 		holder.category.setText(i.getCategory_name());
 		holder.price.setText(String.format(Locale.CANADA, "%1$,.2f", i.getPrice()));
 	}
-
 
 	private Item getItem(int position) {
 		return favourites.get(position);

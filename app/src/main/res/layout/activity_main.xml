@@ -19,7 +19,26 @@
         app:itemTextColor="@color/colorPrimaryDark"
         app:itemIconTint="@color/colorPrimaryDark"
         app:headerLayout="@layout/nav_bar_header"
-        app:menu="@menu/activity_main_drawer_menu" />
+        app:menu="@menu/activity_main_drawer_menu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="©CCP hf. All rights reserved. Used with permission."
+                android:textColor="@color/colorBackground"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
 
     <include
         layout="@layout/app_bar_main"

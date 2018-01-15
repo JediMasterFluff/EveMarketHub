@@ -1,106 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ca.prairesunapplications.evemarkethub.screens.ItemDetails">
+    android:layout_height="match_parent">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_end="222dp"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/itemCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:inputType="none"
-        android:lines="1"
-        android:text="@string/item_details_category_default"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/itemNameTitle" />
-
-    <TextView
-        android:id="@+id/itemDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/app_side_padding"
-        android:ellipsize="end"
-        android:inputType="none"
-        android:text="@string/item_details_descrip_default"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemPriceView" />
-
-    <TextView
-        android:id="@+id/itemNameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/app_side_padding"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:clickable="false"
-        android:inputType="none"
-        android:lines="1"
-        android:text="@string/item_details_item_name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/itemPriceView"
-        android:layout_width="0dp"
-        android:layout_height="93dp"
-        android:layout_margin="@dimen/app_side_padding"
-        android:layout_marginEnd="8dp"
-        android:clickable="false"
-        android:gravity="center_vertical"
-        android:inputType="none"
-        android:lines="1"
-        android:maxLines="1"
-        android:text="@string/item_details_default_price"
-        android:textAlignment="center"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/itemHistoryGraph"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/details_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/graph_height"
-        android:layout_margin="@dimen/app_side_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/item_station_view"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/items_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_size" />
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        layout="@layout/content_item_details"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/app_side_padding"
-        android:clickable="false"
-        app:layout_constraintBottom_toTopOf="@+id/itemHistoryGraph"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/details_app_bar" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:inputType="none"
-        android:lines="1"
-        android:text="@string/item_details_last_updated_default"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/itemCategory" />
 
 </android.support.constraint.ConstraintLayout>

@@ -41,4 +41,10 @@ public class Station {
 	public int getOrders() {
 		return orders;
 	}
+
+	public void setStation_id(int id) {this.station_id = id;}
+
+	public int getId() {
+		return station_id;
+	}
 }

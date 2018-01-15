@@ -13,7 +13,7 @@ public class FavouriteItemCard extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_favourite_item_card);
+		setContentView(R.layout.card_favourite_item);
 	}
 
 	public void getItemDetails(View view) {

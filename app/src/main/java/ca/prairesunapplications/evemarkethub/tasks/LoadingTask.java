@@ -43,7 +43,6 @@ public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 	protected void onPostExecute(Integer integer) {
 		super.onPostExecute(integer);
 		finishedListener.onTaskFinished();
-
 	}
 
 	@Override
@@ -57,7 +56,6 @@ public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 		handler.cleanSlate();
 		new LoadDb(myContext);
 	}
-
 
 	public interface LoadingTaskFinishedListener {
 		void onTaskFinished();

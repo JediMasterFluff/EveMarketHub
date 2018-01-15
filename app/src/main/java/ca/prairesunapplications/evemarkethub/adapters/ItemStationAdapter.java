@@ -24,7 +24,7 @@ public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.
 
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = inflater.inflate(R.layout.activity_item_details_item_station_card, parent, false);
+		View view = inflater.inflate(R.layout.card_item_details_item_station, parent, false);
 		return new ViewHolder(view);
 	}
 

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.R;
+import ca.prairesunapplications.evemarkethub.adapters.FavItemAdapter;
 import ca.prairesunapplications.evemarkethub.adapters.FavStationAdapter;
-import ca.prairesunapplications.evemarkethub.adapters.RVFavAdapter;
 import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 		rv.setLayoutManager(layoutManager);
 
-		RVFavAdapter adapter = new RVFavAdapter(this, fav_items, preference);
+		FavItemAdapter adapter = new FavItemAdapter(this, fav_items, preference);
 		rv.setAdapter(adapter);
 	}
 
@@ -103,9 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				Toaster.toastLong("Will refresh both lists");
 
 		}
-
 		return true;
-
 	}
 
 	@Override
