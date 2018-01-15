@@ -33,4 +33,5 @@
     </string>
     <string name="app_scheme">eveauth-evemerkethub-app:/</string>
     <string name="title_activity_station_details">StationDetails</string>
+    <string name="station_button_text">Take Me There</string>
 </resources>

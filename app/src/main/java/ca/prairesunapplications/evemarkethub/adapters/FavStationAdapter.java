@@ -21,6 +21,7 @@ import ca.prairesunapplications.evemarkethub.screens.StationDetails;
 public class FavStationAdapter extends RecyclerView.Adapter<FavStationAdapter.ViewHolder> {
 
 	public static final String STATION_ID = "Station ID";
+
 	ArrayList<Station> data = new ArrayList<>();
 	LayoutInflater inflater;
 

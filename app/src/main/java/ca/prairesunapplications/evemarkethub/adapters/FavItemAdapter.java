@@ -90,8 +90,8 @@ public class FavItemAdapter extends RecyclerView.Adapter<FavItemAdapter.Favourit
 		FavouriteViewHolder(View itemView) {
 			super(itemView);
 			cv = itemView.findViewById(R.id.fav_cv);
-			name = itemView.findViewById(R.id.fav_item_name);
-			category = itemView.findViewById(R.id.fav_item_category);
+			name = itemView.findViewById(R.id.station_item_name);
+			category = itemView.findViewById(R.id.station_item_category);
 			price = itemView.findViewById(R.id.fav_item_price);
 		}
 	}
