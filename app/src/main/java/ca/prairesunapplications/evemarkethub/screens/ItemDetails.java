@@ -41,7 +41,7 @@ public class ItemDetails extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.content_item_details);
+		setContentView(R.layout.activity_item_details);
 
 		Toolbar toolbar = findViewById(R.id.items_toolbar);
 		toolbar.setTitle("");
@@ -79,7 +79,7 @@ public class ItemDetails extends AppCompatActivity {
 		}
 		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 			RecyclerView rv = findViewById(R.id.item_station_view);
-			int columns = 4;
+			int columns = 3;
 			rv.setLayoutManager(new GridLayoutManager(this, columns));
 			ItemStationAdapter adapter = new ItemStationAdapter(this, data);
 			rv.setAdapter(adapter);

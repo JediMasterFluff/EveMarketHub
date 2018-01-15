@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="85dp"
+    android:layout_width="match_parent"
     android:layout_height="85dp"
     android:orientation="horizontal">
 
@@ -21,9 +21,8 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="center_horizontal|center"
                 android:text="@string/default_station_item_price"
-                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:textColor="@color/colorNegativePriceDiff"
-                android:textSize="14sp"
                 card_view:layout_constraintBottom_toTopOf="@+id/station_name"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
