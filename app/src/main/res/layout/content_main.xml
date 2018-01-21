@@ -17,7 +17,7 @@
 		android:layout_marginTop="@dimen/app_side_padding"
 		android:background="@drawable/background"
 		android:iconifiedByDefault="true"
-		android:onClick="sendMessage"
+		android:onClick="sendToItemList"
 		android:queryHint="Search"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
