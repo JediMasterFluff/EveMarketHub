@@ -20,8 +20,6 @@ import ca.prairesunapplications.evemarkethub.screens.StationDetails;
 
 public class FavStationAdapter extends RecyclerView.Adapter<FavStationAdapter.ViewHolder> {
 
-	public static final String STATION_ID = "Station ID";
-
 	private ArrayList<Station> data = new ArrayList<>();
 	private LayoutInflater inflater;
 
@@ -47,7 +45,7 @@ public class FavStationAdapter extends RecyclerView.Adapter<FavStationAdapter.Vi
 			public void onClick(View view) {
 				Context context = view.getContext();
 				Intent intent = new Intent(context, StationDetails.class);
-				intent.putExtra(STATION_ID, id);
+				intent.putExtra(StationDetails.STATION_ID, id);
 				context.startActivity(intent);
 			}
 		});

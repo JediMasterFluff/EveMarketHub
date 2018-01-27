@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,22 +29,20 @@ import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
-public class ItemDetails extends AppCompatActivity {
+public class ItemDetails extends BaseActivity {
 
 	private SharedPreference preference;
 	private Item item;
 	private TextView priceView;
 	private int id;
 
+	public static final String ITEM_ID = "Item ID";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_item_details);
-
-		Toolbar toolbar = findViewById(R.id.items_toolbar);
+		super.setContentView(R.layout.activity_item_details);
 		toolbar.setTitle("");
-		setSupportActionBar(toolbar);
-
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -57,7 +53,7 @@ public class ItemDetails extends AppCompatActivity {
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 
-		if(extras != null) id = extras.getInt("Item ID");
+		if(extras != null) id = extras.getInt(ITEM_ID);
 		else id = 0;
 
 		item = new Item(); //getItem(id);

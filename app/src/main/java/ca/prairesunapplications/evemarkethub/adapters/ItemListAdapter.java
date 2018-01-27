@@ -1,6 +1,7 @@
 package ca.prairesunapplications.evemarkethub.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.objects.Item;
+import ca.prairesunapplications.evemarkethub.screens.ItemDetails;
 
 /**
  * Created by fluffy on 20/01/18.
@@ -52,16 +54,28 @@ public class ItemListAdapter extends BaseAdapter {
 
 			view = inflater.inflate(R.layout.item_list_entry, null);
 			holder.itemName = view.findViewById(R.id.list_item_text_view);
+
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder) view.getTag();
 		}
-		Item listItem = list.get(i);
+		final Item listItem = list.get(i);
 		if(listItem != null) {
 			if(holder.itemName != null) {
 				holder.itemName.setText(listItem.getName());
 			}
 		}
+
+		view.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Context context = view.getContext();
+				Intent intent = new Intent(context, ItemDetails.class);
+				intent.putExtra(ItemDetails.ITEM_ID, listItem.getId());
+
+				context.startActivity(intent);
+			}
+		});
 
 		return view;
 	}

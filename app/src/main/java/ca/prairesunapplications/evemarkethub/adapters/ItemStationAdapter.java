@@ -1,6 +1,8 @@
 package ca.prairesunapplications.evemarkethub.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.objects.Station;
+import ca.prairesunapplications.evemarkethub.screens.StationDetails;
 
 public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.ViewHolder> {
 
@@ -29,13 +32,28 @@ public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder holder, int position) {
+	public void onBindViewHolder(ViewHolder holder, final int position) {
 		Station st = data.get(position);
 		String price = st.getItemPrice(0);
 		String name = st.getName();
 
 		holder.price.setText(price);
 		holder.name.setText(name);
+
+
+		holder.cv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Context context = view.getContext();
+				Intent intent = new Intent(context, StationDetails.class);
+
+				Station st = data.get(position);
+
+				intent.putExtra(StationDetails.STATION_ID, st.getId());
+
+				context.startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -44,11 +62,13 @@ public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
+		CardView cv;
 		TextView price;
 		TextView name;
 
 		public ViewHolder(View itemView) {
 			super(itemView);
+			cv = itemView.findViewById(R.id.item_station_card);
 			price = itemView.findViewById(R.id.station_item_price);
 			name = itemView.findViewById(R.id.station_name);
 		}
