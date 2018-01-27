@@ -7,10 +7,11 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.objects.Item;
+import ca.prairesunapplications.evemarkethub.objects.Station;
 import xdroid.toaster.Toaster;
 
 /**
@@ -21,85 +22,127 @@ import xdroid.toaster.Toaster;
 
 public class SharedPreference {
 
-	private static final String FAV_PREF_NAME = "EVEMARKETHUB_FAVOURITES";
-	private static final String USER_PREF_NAME = "EVEMARKETHUB_USER";
-	private static final String DATA_PREF_NAME = "EVEMARKETHUB_DATA";
-	private static final String FAVS = "Item_Favourites";
+	public static final String FAV_PREF_NAME = "EVEMARKETHUB_FAVOURITES";
+	public static final String USER_PREF_NAME = "EVEMARKETHUB_USER";
+	public static final String DATA_PREF_NAME = "EVEMARKETHUB_DATA";
+
+	public static final String ITEM_FAVOURITES = "Item_Favourites";
+	public static final String STATION_FAVOURITES = "Station_Favourites";
 
 	public SharedPreference() {
 		super();
 	}
 
-	public void addFavourite(Context context, Item item) {
-		List<Item> items = getFavourites(context);
-		if(items == null) {
-			items = new ArrayList<>();
-		} else if(items.size() < 5) {// Only allowing 5 favourites at this time
-			if(isFavourite(context, item)) {
+	public void addFavourite(Context context, Object item, String pref_name, String pref_type) {
+		List<Object> favs = getFavourites(context, pref_name, pref_type);
+		if(favs == null) {
+			favs = new ArrayList<>();
+		} else if(favs.size() < 5) {// Only allowing 5 favourites at this time
+			if(isFavourite(context, item, pref_name, pref_type)) {
 				Toaster.toastLong("Item is already a favourite");
 			} else {
-				items.add(item);
+				favs.add(item);
 				Toaster.toast("Item added to favourites");
 			}
 		} else {
 			Toaster.toastLong("Cannot add any more favourites");
 		}
-		saveFavourites(context, items);
+		saveFavourites(context, favs, pref_name, pref_type);
 	}
 
-	public void saveFavourites(Context context, List<Item> items) {
+	public void saveFavourites(Context context, List<Object> favs, String pref_name, String pref_type) {
 		SharedPreferences settings;
 		SharedPreferences.Editor editor;
 		Log.e("EveMarketHub", "getting settings from preference");
-		settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
+		settings = context.getSharedPreferences(pref_name, Context.MODE_PRIVATE);
 
 		editor = settings.edit();
 
 		Gson gson = new Gson();
-		String json = gson.toJson(items);
+		String json = gson.toJson(favs);
 
-		editor.putString(FAVS, json);
+		editor.putString(pref_type, json);
 
 		editor.apply();
 	}
 
-	public ArrayList<Item> getFavourites(Context context) {
+	public ArrayList<Object> getFavourites(Context context, String pref_name, String pref_type) {
 		SharedPreferences settings;
-		List<Item> favs;
+		List<Object> favs;
 
-		settings = context.getSharedPreferences(FAV_PREF_NAME, Context.MODE_PRIVATE);
+		settings = context.getSharedPreferences(pref_name, Context.MODE_PRIVATE);
 
-		if(settings.contains(FAVS)) {
-			String json = settings.getString(FAVS, null);
+		if(settings.contains(pref_type)) {
+			String json = settings.getString(pref_type, null);
 			Gson gson = new Gson();
-			Item[] items = gson.fromJson(json, Item[].class);
+			switch(pref_type) {
+				case ITEM_FAVOURITES:
+					favs = new ArrayList<>(gson.<Collection<?>>fromJson(json, Item[].class));
+					break;
+				case STATION_FAVOURITES:
+					favs = new ArrayList<>(gson.<Collection<?>>fromJson(json, Station[].class));
+					break;
+				default:
+					favs = new ArrayList<>();
+			}
 
-			favs = Arrays.asList(items);
-			favs = new ArrayList<>(favs);
 		} else return new ArrayList<>();
 
-		return (ArrayList<Item>) favs;
+		return (ArrayList<Object>) favs;
 	}
 
-	public boolean isFavourite(Context context, Item item) {
+	public boolean isFavourite(Context context, Object item, String pref_name, String pref_type) {
 
-		ArrayList<Item> items = getFavourites(context);
-		if(items != null) {
-			for(Item i : items) {
-				if(i.getId() == item.getId()) return true;
-			}
-			return false;
-		} else return false;
+		ArrayList<Object> favs = getFavourites(context, pref_name, pref_type);
+
+		switch(pref_type) {
+			case ITEM_FAVOURITES:
+				if(favs != null) {
+					for(Object o : favs) {
+						if(o instanceof Item && item instanceof Item) {
+							Item i = (Item) o;
+							Item j = (Item) item;
+							if(i.getId() == j.getId()) return true;
+						}
+					}
+					return false;
+				} else return false;
+			case STATION_FAVOURITES:
+				if(favs != null) {
+					for(Object o : favs) {
+						if(o instanceof Station && item instanceof Station) {
+							Station i = (Station) o;
+							Station j = (Station) item;
+							if(i.getId() == j.getId()) return true;
+						}
+					}
+					return false;
+				} else return false;
+		}
+		return false;
 	}
 
-	public void removeFavourite(Context context, Item item) {
-		ArrayList<Item> items = getFavourites(context);
-		if(items != null) {
-			for(Item i : items) {
-				if(i.getId() == item.getId()) {
-					items.remove(i);
-					Toaster.toast("Item Removed From Favourites");
-					saveFavourites(context, items);
+	public void removeFavourite(Context context, Object item, String pref_name, String pref_type) {
+		ArrayList<Object> favs = getFavourites(context, pref_name, pref_type);
+
+		if(favs != null) {
+			for(Object o : favs) {
+				if(o instanceof Item && item instanceof Item) {
+					Item i = (Item) o;
+					Item j = (Item) item;
+					if(i.getId() == j.getId()) {
+						favs.remove(o);
+						Toaster.toast("Item Removed From Favourites");
+						saveFavourites(context, favs, pref_name, pref_type);
+					}
+				} else if(o instanceof Station && item instanceof Station) {
+					Station s = (Station) o;
+					Station t = (Station) item;
+					if(s.getId() == t.getId()) {
+						favs.remove(o);
+						Toaster.toast("Station Removed From Favourites");
+						saveFavourites(context, favs, pref_name, pref_type);
+					}
 				}
 			}
 		}

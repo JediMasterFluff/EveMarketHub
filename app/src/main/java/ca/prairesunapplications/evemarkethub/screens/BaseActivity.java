@@ -13,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import ca.prairesunapplications.evemarkethub.R;
 
@@ -38,12 +37,14 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 		setSupportActionBar(toolbar);
 
 		drawerLayout = findViewById(R.id.drawer_layout);
-		toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+		toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawerLayout.addDrawerListener(toggle);
+
+		toggle.syncState();
 
 		navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
-
 	}
 
 	@Override
@@ -88,21 +89,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		toggle.onConfigurationChanged(newConfig);
-	}
-
-	public void addMenuIcon() {
-		toggle.setDrawerIndicatorEnabled(true);
-		toggle.setHomeAsUpIndicator(R.drawable.ic_drawer_menu);
-		toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if(drawerLayout.isDrawerVisible(GravityCompat.START)) {
-					drawerLayout.closeDrawer(GravityCompat.START);
-				} else {
-					drawerLayout.openDrawer(GravityCompat.START);
-				}
-			}
-		});
 	}
 }
 

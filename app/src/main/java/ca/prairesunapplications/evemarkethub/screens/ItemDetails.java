@@ -43,8 +43,8 @@ public class ItemDetails extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_item_details);
 		toolbar.setTitle("");
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		getSupportActionBar().setDisplayShowHomeEnabled(false);
 
 		priceView = findViewById(R.id.itemPriceView);
 
@@ -131,7 +131,7 @@ public class ItemDetails extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_items_detail_bar_menu, menu);
+		getMenuInflater().inflate(R.menu.details_toolbar_menu, menu);
 
 		MenuItem favItem = menu.getItem(id);
 
@@ -143,7 +143,7 @@ public class ItemDetails extends BaseActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
 		switch(menuItem.getItemId()) {
-			case R.id.favourite_item:
+			case R.id.favourite_entry:
 				// check if item is already favourited
 				// if yes, remove from favourite list and change icon to ic_unfavourite
 				// else, add to favourites list and change icon to ic_favourite
@@ -157,7 +157,7 @@ public class ItemDetails extends BaseActivity {
 					menuItem.setIcon(R.drawable.ic_favourite);
 				}
 				return true;
-			case R.id.refresh_item:
+			case R.id.refresh_entry:
 
 			case android.R.id.home:
 				finish();
