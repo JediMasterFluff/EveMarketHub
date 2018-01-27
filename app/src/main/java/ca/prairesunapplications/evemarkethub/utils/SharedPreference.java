@@ -7,7 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.objects.Item;
@@ -68,27 +68,18 @@ public class SharedPreference {
 
 	public ArrayList<Object> getFavourites(Context context, String pref_name, String pref_type) {
 		SharedPreferences settings;
-		List<Object> favs;
+		Object[] favs;
 
 		settings = context.getSharedPreferences(pref_name, Context.MODE_PRIVATE);
 
 		if(settings.contains(pref_type)) {
 			String json = settings.getString(pref_type, null);
 			Gson gson = new Gson();
-			switch(pref_type) {
-				case ITEM_FAVOURITES:
-					favs = new ArrayList<>(gson.<Collection<?>>fromJson(json, Item[].class));
-					break;
-				case STATION_FAVOURITES:
-					favs = new ArrayList<>(gson.<Collection<?>>fromJson(json, Station[].class));
-					break;
-				default:
-					favs = new ArrayList<>();
-			}
+			favs = gson.fromJson(json, Object[].class);
 
 		} else return new ArrayList<>();
 
-		return (ArrayList<Object>) favs;
+		return new ArrayList<>(Arrays.asList(favs));
 	}
 
 	public boolean isFavourite(Context context, Object item, String pref_name, String pref_type) {

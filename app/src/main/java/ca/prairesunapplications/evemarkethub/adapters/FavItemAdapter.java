@@ -27,13 +27,13 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class FavItemAdapter extends RecyclerView.Adapter<FavItemAdapter.FavouriteViewHolder> {
 
-	private final List<Item> favourites;
+	private final List<Object> favourites;
 
 	private SharedPreference preference;
 
 	private Context mContext;
 
-	public FavItemAdapter(Context context, List<Item> items, SharedPreference preference) {
+	public FavItemAdapter(Context context, List<Object> items, SharedPreference preference) {
 		this.favourites = items;
 		this.mContext = context;
 		this.preference = preference;
@@ -68,7 +68,8 @@ public class FavItemAdapter extends RecyclerView.Adapter<FavItemAdapter.Favourit
 	}
 
 	private Item getItem(int position) {
-		return favourites.get(position);
+		if(favourites.get(position) instanceof Item) return (Item) favourites.get(position);
+		return new Item();
 	}
 
 	@Override

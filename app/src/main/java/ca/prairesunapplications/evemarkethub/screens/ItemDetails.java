@@ -135,7 +135,8 @@ public class ItemDetails extends BaseActivity {
 
 		MenuItem favItem = menu.getItem(id);
 
-		if(preference.isFavourite(this, item)) favItem.setIcon(R.drawable.ic_favourite);
+		if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES))
+			favItem.setIcon(R.drawable.ic_favourite);
 
 		return true;
 	}
@@ -147,13 +148,13 @@ public class ItemDetails extends BaseActivity {
 				// check if item is already favourited
 				// if yes, remove from favourite list and change icon to ic_unfavourite
 				// else, add to favourites list and change icon to ic_favourite
-				if(preference.isFavourite(this, item)) { // if this item is already a fav
+				if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES)) { // if this item is already a fav
 					Log.e("EveMarketHub", "Removing From Favs");
-					preference.removeFavourite(this, item);
+					preference.removeFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES);
 					menuItem.setIcon(R.drawable.ic_unfavourite);
 				} else {
 					Log.e("EvemMarketHub", "Adding to Favs");
-					preference.addFavourite(this, item);
+					preference.addFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES);
 					menuItem.setIcon(R.drawable.ic_favourite);
 				}
 				return true;
