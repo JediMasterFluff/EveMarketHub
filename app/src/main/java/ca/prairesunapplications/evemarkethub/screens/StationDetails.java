@@ -14,7 +14,10 @@ public class StationDetails extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.setContentView(R.layout.toolbar_station_details);
+		super.setContentView(R.layout.activity_station_details);
+		toolbar.setTitle("");
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true); //This shows the back arrow in the toolbar
 
 		Intent intent = getIntent();
 
