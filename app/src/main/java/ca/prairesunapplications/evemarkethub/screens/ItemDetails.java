@@ -36,8 +36,6 @@ public class ItemDetails extends BaseActivity {
 	private TextView priceView;
 	private int id;
 
-	public static final String ITEM_ID = "Item ID";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

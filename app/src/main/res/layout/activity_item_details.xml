@@ -8,6 +8,11 @@
     android:layout_height="match_parent"
     tools:openDrawer="start">
 
+    <include
+        layout="@layout/toolbar_item_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         style="@style/AppTheme.NavigationView"
@@ -40,10 +45,5 @@
         </LinearLayout>
 
     </android.support.design.widget.NavigationView>
-
-    <include
-        layout="@layout/toolbar_item_details"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </android.support.v4.widget.DrawerLayout>

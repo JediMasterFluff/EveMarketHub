@@ -27,6 +27,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 	public ActionBarDrawerToggle toggle;
 	private NavigationView navigationView;
 
+	public static final String ITEM_ID = "Item ID";
+	public static final String STATION_ID = "Station ID";
+	public static final String LOG_HEADER = "EveMarketHub";
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,9 +59,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
 		int id = item.getItemId();
 
 		Intent intent;
+
+		//Log.e(LOG_HEADER, "You clicked a nav option" );
 
 		if(id == R.id.nav_manage) {
 			intent = new Intent(this, ItemDetails.class);
@@ -71,11 +78,14 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
 		} else if(id == R.id.nav_send) {
 
+		} else if(id == R.id.nav_home) {
+			intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
 		} else intent = new Intent(this, ItemDetails.class);
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
-		item.setChecked(false);
+		//item.setChecked(false);
 		return true;
 	}
 
@@ -90,5 +100,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 		super.onConfigurationChanged(newConfig);
 		toggle.onConfigurationChanged(newConfig);
 	}
+
 }
 

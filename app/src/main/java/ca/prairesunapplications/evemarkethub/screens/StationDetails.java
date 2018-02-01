@@ -16,8 +16,6 @@ public class StationDetails extends BaseActivity {
 	private SharedPreference preference;
 	private Station station;
 
-	public static final String STATION_ID = "Station ID";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
