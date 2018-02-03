@@ -39,7 +39,7 @@ public class SharedPreference {
 		if(favs == null) {
 			favs = new ArrayList<>();
 		} else if(favs.size() < 5) {// Only allowing 5 favourites at this time
-			if(isFavourite(context, item, pref_name, pref_type, cls)) {
+			if(isFavourite(context, item, pref_name, pref_type)) {
 				Toaster.toastLong("Item is already a favourite");
 			} else {
 				favs.add(item);
@@ -89,7 +89,6 @@ public class SharedPreference {
 		switch(pref_type) {
 			case ITEM_FAVOURITES:
 				Log.e(BaseActivity.LOG_HEADER, "Item Favourite Save");
-			{
 				ArrayList<Item> favs = getFavourites(context, pref_name, pref_type, Item[].class);
 				if(favs != null) {
 					for(Item i : favs) {

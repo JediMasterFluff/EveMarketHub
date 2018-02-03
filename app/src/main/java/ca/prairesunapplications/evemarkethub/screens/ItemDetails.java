@@ -143,7 +143,7 @@ public class ItemDetails extends BaseActivity {
 
 		MenuItem favItem = menu.getItem(id);
 
-		if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class))
+		if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES))
 			favItem.setIcon(R.drawable.ic_favourite);
 
 		return true;
@@ -156,7 +156,7 @@ public class ItemDetails extends BaseActivity {
 				// check if item is already favourited
 				// if yes, remove from favourite list and change icon to ic_unfavourite
 				// else, add to favourites list and change icon to ic_favourite
-				if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class)) { // if this item is already a fav
+				if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES)) { // if this item is already a fav
 					Log.e(LOG_HEADER, "Removing From Favs");
 					preference.removeFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class);
 					menuItem.setIcon(R.drawable.ic_unfavourite);
