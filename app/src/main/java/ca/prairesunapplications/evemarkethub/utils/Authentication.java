@@ -13,7 +13,7 @@ import java.net.URL;
  * Created by fluffy on 29/12/17.
  */
 
-public class Authentication {
+class Authentication {
 
 	private static final String auth_path = "https://login.eveonline.com/oauth/authorize";
 
@@ -23,7 +23,7 @@ public class Authentication {
 	private static final String scope = "publicData characterNavigationWrite characterWalletRead characterMarketOrdersRead esi-wallet.read_character_wallet.v1 esi-search.search_structures.v1 esi-markets.structure_markets.v1 esi-location.read_online.v1";
 	private static final String state = "unique_eve_state132";
 
-	private String final_path;
+	private final String final_path;
 
 	public Authentication() {
 		final_path = auth_path + "/?response_type=" + response_type + "&redirect_uri=" + redirect_url + "&client_id=" + client_id + "&scope=" + scope + "&state=" + state;

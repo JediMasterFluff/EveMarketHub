@@ -26,7 +26,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/itemNameTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/itemNameTitle"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/itemDesc"
@@ -55,7 +56,8 @@
         android:text="@string/item_details_item_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/itemPriceView"
@@ -73,7 +75,8 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="8dp" />
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/itemHistoryGraph"
@@ -104,6 +107,7 @@
         android:lines="1"
         android:text="@string/item_details_last_updated_default"
         app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/itemCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/itemCategory"
+        android:layout_marginLeft="8dp" />
 
 </android.support.constraint.ConstraintLayout>

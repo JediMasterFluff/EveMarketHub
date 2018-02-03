@@ -20,8 +20,8 @@ import ca.prairesunapplications.evemarkethub.screens.ItemDetails;
 
 public class ItemListAdapter extends BaseAdapter {
 
-	private ArrayList<Item> list;
-	private LayoutInflater inflater;
+	private final ArrayList<Item> list;
+	private final LayoutInflater inflater;
 
 	public ItemListAdapter(Context context, ArrayList<Item> data) {
 		this.list = data;
@@ -52,7 +52,7 @@ public class ItemListAdapter extends BaseAdapter {
 
 			holder = new ViewHolder();
 
-			view = inflater.inflate(R.layout.item_list_entry, null);
+			view = inflater.inflate(R.layout.item_list_entry, viewGroup);
 			holder.itemName = view.findViewById(R.id.list_item_text_view);
 
 			view.setTag(holder);
@@ -71,7 +71,7 @@ public class ItemListAdapter extends BaseAdapter {
 			public void onClick(View view) {
 				Context context = view.getContext();
 				Intent intent = new Intent(context, ItemDetails.class);
-				intent.putExtra(ItemDetails.ITEM_ID, listItem.getId());
+				intent.putExtra(ItemDetails.ITEM_ID, listItem != null ? listItem.getId() : 0);
 
 				context.startActivity(intent);
 			}
@@ -81,6 +81,6 @@ public class ItemListAdapter extends BaseAdapter {
 	}
 
 	private static class ViewHolder {
-		protected TextView itemName;
+		TextView itemName;
 	}
 }

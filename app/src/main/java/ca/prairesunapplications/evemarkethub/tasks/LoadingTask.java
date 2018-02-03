@@ -42,6 +42,7 @@ public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 
 	protected void onPostExecute(Integer integer) {
 		super.onPostExecute(integer);
+		assert finishedListener != null;
 		finishedListener.onTaskFinished();
 	}
 

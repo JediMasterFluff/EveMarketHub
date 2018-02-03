@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
@@ -32,7 +32,8 @@
     </style>
 
     <style name="AppTheme.NavigationView" parent="AppTheme">
-        <item name="android:elevation">@dimen/design_navigation_elevation</item>
+        <item name="android:elevation" tools:ignore="NewApi">@dimen/design_navigation_elevation
+        </item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:maxWidth">@dimen/design_navigation_max_width</item>
     </style>

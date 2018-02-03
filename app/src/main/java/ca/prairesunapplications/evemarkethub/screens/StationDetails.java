@@ -15,9 +15,9 @@ import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
+@SuppressWarnings("ConstantConditions")
 public class StationDetails extends BaseActivity {
 
-	private int id;
 	private SharedPreference preference;
 	private Station station;
 
@@ -25,14 +25,13 @@ public class StationDetails extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_station_details);
-		;
 		toolbar.setTitle("");
 		getSupportActionBar().setDisplayShowHomeEnabled(false);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false); //This shows the back arrow in the toolbar
 
 		Intent intent = getIntent();
 
-		id = intent.getIntExtra(STATION_ID, 0);
+		int id = intent.getIntExtra(STATION_ID, 0);
 
 		station = new Station();
 

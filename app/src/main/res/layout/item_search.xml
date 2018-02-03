@@ -17,5 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="@string/item_details_descrip_default"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="10dp" />
 </LinearLayout>

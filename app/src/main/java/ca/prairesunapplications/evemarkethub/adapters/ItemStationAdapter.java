@@ -18,7 +18,7 @@ import ca.prairesunapplications.evemarkethub.screens.StationDetails;
 public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.ViewHolder> {
 
 	private ArrayList<Station> data = new ArrayList<>();
-	private LayoutInflater inflater;
+	private final LayoutInflater inflater;
 
 	public ItemStationAdapter(Context context, ArrayList<Station> stations) {
 		this.inflater = LayoutInflater.from(context);
@@ -32,8 +32,8 @@ public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder holder, final int position) {
-		Station st = data.get(position);
+	public void onBindViewHolder(ViewHolder holder, int position) {
+		final Station st = data.get(position);
 		String price = st.getItemPrice(0);
 		String name = st.getName();
 
@@ -46,8 +46,6 @@ public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.
 			public void onClick(View view) {
 				Context context = view.getContext();
 				Intent intent = new Intent(context, StationDetails.class);
-
-				Station st = data.get(position);
 
 				intent.putExtra(StationDetails.STATION_ID, st.getId());
 
@@ -62,9 +60,9 @@ public class ItemStationAdapter extends RecyclerView.Adapter<ItemStationAdapter.
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
-		CardView cv;
-		TextView price;
-		TextView name;
+		final CardView cv;
+		final TextView price;
+		final TextView name;
 
 		public ViewHolder(View itemView) {
 			super(itemView);

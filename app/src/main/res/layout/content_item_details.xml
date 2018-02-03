@@ -95,7 +95,8 @@
         app:layout_constraintBottom_toTopOf="@+id/itemHistoryGraph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/itemDesc"
+        tools:ignore="InconsistentLayout" />
 
     <TextView
         android:layout_width="wrap_content"

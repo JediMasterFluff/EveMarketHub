@@ -25,10 +25,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 	public static final String ITEM_ID = "Item ID";
 	public static final String STATION_ID = "Station ID";
 	public static final String LOG_HEADER = "EveMarketHub";
-	public DrawerLayout drawerLayout;
-	public Toolbar toolbar;
-	public ActionBarDrawerToggle toggle;
-	private NavigationView navigationView;
+	private DrawerLayout drawerLayout;
+	Toolbar toolbar;
+	private ActionBarDrawerToggle toggle;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 		onCreateDrawer();
 	}
 
-	protected void onCreateDrawer() {
+	private void onCreateDrawer() {
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
@@ -52,7 +51,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
 		toggle.syncState();
 
-		navigationView = findViewById(R.id.nav_view);
+		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 	}
 

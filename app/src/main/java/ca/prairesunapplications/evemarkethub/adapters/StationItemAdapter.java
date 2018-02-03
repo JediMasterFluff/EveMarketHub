@@ -20,7 +20,7 @@ import ca.prairesunapplications.evemarkethub.objects.Item;
 public class StationItemAdapter extends RecyclerView.Adapter<StationItemAdapter.ViewHolder> {
 
 	private ArrayList<Item> data = new ArrayList<>();
-	private LayoutInflater inflater;
+	private final LayoutInflater inflater;
 
 
 	public StationItemAdapter(Context context, ArrayList<Item> list) {

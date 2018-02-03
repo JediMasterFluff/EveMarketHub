@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:padding="@dimen/app_side_padding"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginStart="5dp" />
 
 </LinearLayout>

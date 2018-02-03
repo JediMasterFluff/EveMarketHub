@@ -21,6 +21,7 @@ import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 import xdroid.toaster.Toaster;
 
+@SuppressWarnings("ConstantConditions")
 public class MainActivity extends BaseActivity {
 
 	@Override

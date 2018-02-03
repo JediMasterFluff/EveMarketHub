@@ -78,7 +78,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/second_edge_line"
                 app:layout_constraintEnd_toStartOf="@+id/first_edge_line"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="8dp" />
 
             <TextView
                 android:id="@+id/fav_station_right_block"

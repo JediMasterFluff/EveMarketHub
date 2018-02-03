@@ -50,7 +50,7 @@ public class SharedPreference {
 		saveFavourites(context, favs, pref_name, pref_type);
 	}
 
-	public void saveFavourites(Context context, List<Class> favs, String pref_name, String pref_type) {
+	private void saveFavourites(Context context, List<Class> favs, String pref_name, String pref_type) {
 		SharedPreferences settings;
 		SharedPreferences.Editor editor;
 		Log.e(BaseActivity.LOG_HEADER, "getting settings from preference");

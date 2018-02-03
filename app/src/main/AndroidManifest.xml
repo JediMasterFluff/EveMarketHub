@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.prairesunapplications.evemarkethub">
 
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="23" />
-
     <uses-feature
         android:name="android.hardware.wifi"
         android:required="true" />
@@ -62,7 +58,8 @@
         <activity
             android:name=".screens.StationDetails"
             android:label="@string/title_activity_station_details"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".screens.BaseActivity" />
     </application>
 
 </manifest>

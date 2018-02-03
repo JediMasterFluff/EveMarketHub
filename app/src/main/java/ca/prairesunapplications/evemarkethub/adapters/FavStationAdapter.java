@@ -21,7 +21,7 @@ import ca.prairesunapplications.evemarkethub.screens.StationDetails;
 public class FavStationAdapter extends RecyclerView.Adapter<FavStationAdapter.ViewHolder> {
 
 	private ArrayList<Station> data = new ArrayList<>();
-	private LayoutInflater inflater;
+	private final LayoutInflater inflater;
 
 	public FavStationAdapter(Context context, ArrayList<Station> list) {
 		this.data = list;
