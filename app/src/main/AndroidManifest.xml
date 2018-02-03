@@ -60,6 +60,9 @@
             android:label="@string/title_activity_station_details"
             android:theme="@style/AppTheme" />
         <activity android:name=".screens.BaseActivity" />
+        <activity
+            android:name=".screens.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

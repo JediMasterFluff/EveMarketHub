@@ -52,7 +52,7 @@ public class ItemListAdapter extends BaseAdapter {
 
 			holder = new ViewHolder();
 
-			view = inflater.inflate(R.layout.item_list_entry, viewGroup);
+			view = inflater.inflate(R.layout.item_list_entry, null);
 			holder.itemName = view.findViewById(R.id.list_item_text_view);
 
 			view.setTag(holder);
