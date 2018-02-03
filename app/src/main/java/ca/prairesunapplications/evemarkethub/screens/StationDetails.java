@@ -54,11 +54,11 @@ public class StationDetails extends BaseActivity {
 				// if yes, remove from favourite list and change icon to ic_unfavourite
 				// else, add to favourites list and change icon to ic_favourite
 				if(preference.isFavourite(this, station, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES)) { // if this item is already a fav
-					Log.e("EveMarketHub", "Removing From  Station Favs");
+					Log.e(BaseActivity.LOG_HEADER, "Removing From  Station Favs");
 					preference.removeFavourite(this, station, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES, Station[].class);
 					menuItem.setIcon(R.drawable.ic_unfavourite);
 				} else {
-					Log.e("EvemMarketHub", "Adding to Station Favs");
+					Log.e(BaseActivity.LOG_HEADER, "Adding to Station Favs");
 					preference.addFavourite(this, station, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES, Station[].class);
 					menuItem.setIcon(R.drawable.ic_favourite);
 				}

@@ -92,24 +92,18 @@ public class SharedPreference {
 				ArrayList<Item> favs = getFavourites(context, pref_name, pref_type, Item[].class);
 				if(favs != null) {
 					for(Item i : favs) {
-						Log.e(BaseActivity.LOG_HEADER, Integer.toString(i.getId()));
-						Log.e(BaseActivity.LOG_HEADER, Integer.toString(((Item) item).getId()));
-						if(i.getId() == ((Item) item).getId()) return true;
+						if(i.equals(item)) return true;
 					}
 				} else return false;
-			/*case STATION_FAVOURITES:
+			case STATION_FAVOURITES:
 				Log.e(BaseActivity.LOG_HEADER, "Station Favourite Save");
-				if(favs != null) {
-					for(Object o : favs) {
-						if(o instanceof Station && item instanceof Station) {
-							Station i = (Station) o;
-							Station j = (Station) item;
-							if(i.equals(j)) return true;
-						}
+				ArrayList<Station> favs_st = getFavourites(context, pref_name, pref_type, Station[].class);
+				if(favs_st != null) {
+					for(Station s : favs_st) {
+						if(s.equals(item)) return true;
 					}
 					return false;
 				} else return false;
-			*/
 			}
 		return false;
 	}
