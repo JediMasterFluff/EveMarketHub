@@ -42,6 +42,21 @@ public class Station {
 		return orders;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(o == null || getClass() != o.getClass()) return false;
+
+		Station station = (Station) o;
+
+		return station_id == station.station_id;
+	}
+
+	@Override
+	public int hashCode() {
+		return station_id;
+	}
+
 	public void setStation_id(int id) {this.station_id = id;}
 
 	public int getId() {

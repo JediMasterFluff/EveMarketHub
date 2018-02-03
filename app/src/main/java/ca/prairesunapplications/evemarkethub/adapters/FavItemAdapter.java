@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.screens.ItemDetails;
-import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 /**
  * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to respond to move and
@@ -27,16 +26,10 @@ import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
 public class FavItemAdapter extends RecyclerView.Adapter<FavItemAdapter.FavouriteViewHolder> {
 
-	private final List<Object> favourites;
+	private final ArrayList<Item> favourites;
 
-	private SharedPreference preference;
-
-	private Context mContext;
-
-	public FavItemAdapter(Context context, List<Object> items, SharedPreference preference) {
+	public FavItemAdapter(ArrayList<Item> items) {
 		this.favourites = items;
-		this.mContext = context;
-		this.preference = preference;
 	}
 
 	@Override
@@ -68,8 +61,7 @@ public class FavItemAdapter extends RecyclerView.Adapter<FavItemAdapter.Favourit
 	}
 
 	private Item getItem(int position) {
-		if(favourites.get(position) instanceof Item) return (Item) favourites.get(position);
-		return new Item();
+		return favourites.get(position);
 	}
 
 	@Override

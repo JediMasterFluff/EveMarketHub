@@ -12,11 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.R;
 import ca.prairesunapplications.evemarkethub.adapters.FavItemAdapter;
 import ca.prairesunapplications.evemarkethub.adapters.FavStationAdapter;
+import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 import xdroid.toaster.Toaster;
@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity {
 
 		SharedPreference preference = new SharedPreference();
 
-		List<Object> fav_items = preference.getFavourites(this, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES);
+		ArrayList<Item> fav_items = preference.getFavourites(this, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class);
 
 		RecyclerView rv = findViewById(R.id.favourite_list);
 		rv.setHasFixedSize(true);
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
 		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 		rv.setLayoutManager(layoutManager);
 
-		FavItemAdapter adapter = new FavItemAdapter(this, fav_items, preference);
+		FavItemAdapter adapter = new FavItemAdapter(fav_items);
 		rv.setAdapter(adapter);
 	}
 

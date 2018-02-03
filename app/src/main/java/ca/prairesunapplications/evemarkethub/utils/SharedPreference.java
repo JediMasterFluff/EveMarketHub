@@ -12,6 +12,7 @@ import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.objects.Station;
+import ca.prairesunapplications.evemarkethub.screens.BaseActivity;
 import xdroid.toaster.Toaster;
 
 /**
@@ -33,12 +34,12 @@ public class SharedPreference {
 		super();
 	}
 
-	public void addFavourite(Context context, Object item, String pref_name, String pref_type) {
-		List<Object> favs = getFavourites(context, pref_name, pref_type);
+	public void addFavourite(Context context, Object item, String pref_name, String pref_type, Class cls) {
+		ArrayList favs = getFavourites(context, pref_name, pref_type, cls);
 		if(favs == null) {
 			favs = new ArrayList<>();
 		} else if(favs.size() < 5) {// Only allowing 5 favourites at this time
-			if(isFavourite(context, item, pref_name, pref_type)) {
+			if(isFavourite(context, item, pref_name, pref_type, cls)) {
 				Toaster.toastLong("Item is already a favourite");
 			} else {
 				favs.add(item);
@@ -50,10 +51,10 @@ public class SharedPreference {
 		saveFavourites(context, favs, pref_name, pref_type);
 	}
 
-	public void saveFavourites(Context context, List<Object> favs, String pref_name, String pref_type) {
+	public void saveFavourites(Context context, List<Class> favs, String pref_name, String pref_type) {
 		SharedPreferences settings;
 		SharedPreferences.Editor editor;
-		Log.e("EveMarketHub", "getting settings from preference");
+		Log.e(BaseActivity.LOG_HEADER, "getting settings from preference");
 		settings = context.getSharedPreferences(pref_name, Context.MODE_PRIVATE);
 
 		editor = settings.edit();
@@ -66,16 +67,16 @@ public class SharedPreference {
 		editor.apply();
 	}
 
-	public ArrayList<Object> getFavourites(Context context, String pref_name, String pref_type) {
+	public <T> ArrayList<T> getFavourites(Context context, String pref_name, String pref_type, Class<T[]> cls) {
 		SharedPreferences settings;
-		Object[] favs;
+		T[] favs;
 
 		settings = context.getSharedPreferences(pref_name, Context.MODE_PRIVATE);
 
 		if(settings.contains(pref_type)) {
 			String json = settings.getString(pref_type, null);
 			Gson gson = new Gson();
-			favs = gson.fromJson(json, Object[].class);
+			favs = gson.fromJson(json, cls);
 
 		} else return new ArrayList<>();
 
@@ -84,37 +85,38 @@ public class SharedPreference {
 
 	public boolean isFavourite(Context context, Object item, String pref_name, String pref_type) {
 
-		ArrayList<Object> favs = getFavourites(context, pref_name, pref_type);
 
 		switch(pref_type) {
 			case ITEM_FAVOURITES:
+				Log.e(BaseActivity.LOG_HEADER, "Item Favourite Save");
+			{
+				ArrayList<Item> favs = getFavourites(context, pref_name, pref_type, Item[].class);
 				if(favs != null) {
-					for(Object o : favs) {
-						if(o instanceof Item && item instanceof Item) {
-							Item i = (Item) o;
-							Item j = (Item) item;
-							if(i.getId() == j.getId()) return true;
-						}
+					for(Item i : favs) {
+						Log.e(BaseActivity.LOG_HEADER, Integer.toString(i.getId()));
+						Log.e(BaseActivity.LOG_HEADER, Integer.toString(((Item) item).getId()));
+						if(i.getId() == ((Item) item).getId()) return true;
 					}
-					return false;
 				} else return false;
-			case STATION_FAVOURITES:
+			/*case STATION_FAVOURITES:
+				Log.e(BaseActivity.LOG_HEADER, "Station Favourite Save");
 				if(favs != null) {
 					for(Object o : favs) {
 						if(o instanceof Station && item instanceof Station) {
 							Station i = (Station) o;
 							Station j = (Station) item;
-							if(i.getId() == j.getId()) return true;
+							if(i.equals(j)) return true;
 						}
 					}
 					return false;
 				} else return false;
-		}
+			*/
+			}
 		return false;
 	}
 
-	public void removeFavourite(Context context, Object item, String pref_name, String pref_type) {
-		ArrayList<Object> favs = getFavourites(context, pref_name, pref_type);
+	public void removeFavourite(Context context, Object item, String pref_name, String pref_type, Class cls) {
+		ArrayList favs = getFavourites(context, pref_name, pref_type, cls);
 
 		if(favs != null) {
 			for(Object o : favs) {

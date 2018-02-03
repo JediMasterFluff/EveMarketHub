@@ -3,6 +3,7 @@ package ca.prairesunapplications.evemarkethub.screens;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,6 +56,7 @@ public class ItemDetails extends BaseActivity {
 		else id = 0;
 
 		item = new Item(); //getItem(id);
+		item.setId(id);
 
 	}
 
@@ -88,7 +90,9 @@ public class ItemDetails extends BaseActivity {
 		series.setThickness(8);
 
 		graph.setTitleColor(Color.WHITE);
-		graph.setBackgroundColor(getResources().getColor(R.color.colorGraphBackground, getTheme()));
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			graph.setBackgroundColor(getResources().getColor(R.color.colorGraphBackground, getTheme()));
+		}
 		graph.addSeries(series);
 
 		double price = item.getPrice();
@@ -98,13 +102,19 @@ public class ItemDetails extends BaseActivity {
 
 	private int getTextColour(int id) {
 		double oldPrice = getOldPrice(id);
-		if(oldPrice > 0) {
-			return getResources().getColor(R.color.colorNegativePriceDiff, getTheme());
-		} else if(oldPrice < 0) {
-			return getResources().getColor(R.color.colorPositivePriceDiff, getTheme());
+
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			if(oldPrice > 0) {
+				return getResources().getColor(R.color.colorNegativePriceDiff, getTheme());
+			} else if(oldPrice < 0) {
+				return getResources().getColor(R.color.colorPositivePriceDiff, getTheme());
+			} else {
+				return getResources().getColor(R.color.colorNoPriceDiff, getTheme());
+			}
 		} else {
-			return getResources().getColor(R.color.colorNoPriceDiff, getTheme());
+			return R.color.colorNoPriceDiff;
 		}
+
 	}
 
 	private double getOldPrice(int id) {
@@ -133,7 +143,7 @@ public class ItemDetails extends BaseActivity {
 
 		MenuItem favItem = menu.getItem(id);
 
-		if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES))
+		if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class))
 			favItem.setIcon(R.drawable.ic_favourite);
 
 		return true;
@@ -146,13 +156,13 @@ public class ItemDetails extends BaseActivity {
 				// check if item is already favourited
 				// if yes, remove from favourite list and change icon to ic_unfavourite
 				// else, add to favourites list and change icon to ic_favourite
-				if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES)) { // if this item is already a fav
-					Log.e("EveMarketHub", "Removing From Favs");
-					preference.removeFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES);
+				if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class)) { // if this item is already a fav
+					Log.e(LOG_HEADER, "Removing From Favs");
+					preference.removeFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class);
 					menuItem.setIcon(R.drawable.ic_unfavourite);
 				} else {
-					Log.e("EvemMarketHub", "Adding to Favs");
-					preference.addFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES);
+					Log.e(LOG_HEADER, "Adding to Favs");
+					preference.addFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class);
 					menuItem.setIcon(R.drawable.ic_favourite);
 				}
 				return true;
