@@ -10,22 +10,30 @@
 
     <TextView
         android:id="@+id/station_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:text="@string/default_fav_station_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/colorSearchBorder"
+        app:layout_constraintEnd_toStartOf="@+id/title_section_guideline_ver"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/station_system_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="@string/default_station_system"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/title_section_guideline_hor"
+        app:layout_constraintEnd_toStartOf="@+id/title_section_guideline_ver"
+        app:layout_constraintLeft_toRightOf="@+id/title_section_guideline_ver"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/station_name" />
 
@@ -50,6 +58,7 @@
         android:id="@+id/autopilot_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/station_button_text"
         app:layout_constraintBottom_toTopOf="@+id/title_section_guideline_hor"
@@ -61,20 +70,10 @@
         android:id="@+id/item_list_station"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="@dimen/app_side_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_section_guideline_hor" />
 
-    <android.support.v7.widget.GridLayout
-        android:id="@+id/item_grid"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:columnCount="4">
-
-    </android.support.v7.widget.GridLayout>>
 </android.support.constraint.ConstraintLayout>

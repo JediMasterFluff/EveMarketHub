@@ -21,9 +21,9 @@
         android:layout_gravity="start"
         android:background="@color/cardview_light_background"
         android:fitsSystemWindows="true"
-        app:itemTextColor="@color/colorPrimaryDark"
-        app:itemIconTint="@color/colorPrimaryDark"
         app:headerLayout="@layout/nav_bar_header"
+        app:itemIconTint="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorPrimaryDark"
         app:menu="@menu/activity_main_drawer_menu">
 
         <LinearLayout
@@ -31,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:clickable="true"
-            android:orientation="vertical"
-            android:focusable="true">
+            android:focusable="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/logout"

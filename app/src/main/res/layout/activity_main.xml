@@ -21,9 +21,9 @@
         android:layout_gravity="start"
         android:background="@color/cardview_light_background"
         android:fitsSystemWindows="true"
-        app:itemTextColor="@color/colorPrimaryDark"
-        app:itemIconTint="@color/colorPrimaryDark"
         app:headerLayout="@layout/nav_bar_header"
+        app:itemIconTint="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorPrimaryDark"
         app:menu="@menu/activity_main_drawer_menu">
 
         <LinearLayout

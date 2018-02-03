@@ -2,11 +2,16 @@ package ca.prairesunapplications.evemarkethub.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import ca.prairesunapplications.evemarkethub.R;
+import ca.prairesunapplications.evemarkethub.adapters.StationItemAdapter;
+import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
 
@@ -33,13 +38,18 @@ public class StationDetails extends BaseActivity {
 
 		preference = new SharedPreference();
 
+		RecyclerView rv = findViewById(R.id.item_list_station);
+		rv.setLayoutManager(new GridLayoutManager(this, 4));
+		rv.setAdapter(new StationItemAdapter(this, new ArrayList<Item>()));
+
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.details_toolbar_menu, menu);
 
-		MenuItem favItem = menu.getItem(id);
+		MenuItem favItem = menu.getItem(0);
 
 		//if(preference.isFavourite(this, station)) favItem.setIcon(R.drawable.ic_favourite);
 
@@ -54,17 +64,15 @@ public class StationDetails extends BaseActivity {
 				// if yes, remove from favourite list and change icon to ic_unfavourite
 				// else, add to favourites list and change icon to ic_favourite
 				if(preference.isFavourite(this, station, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES)) { // if this item is already a fav
-					Log.e(BaseActivity.LOG_HEADER, "Removing From  Station Favs");
 					preference.removeFavourite(this, station, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES, Station[].class);
 					menuItem.setIcon(R.drawable.ic_unfavourite);
 				} else {
-					Log.e(BaseActivity.LOG_HEADER, "Adding to Station Favs");
 					preference.addFavourite(this, station, SharedPreference.FAV_PREF_NAME, SharedPreference.STATION_FAVOURITES, Station[].class);
 					menuItem.setIcon(R.drawable.ic_favourite);
 				}
 				return true;
 			case R.id.refresh_entry:
-
+				break;
 			case android.R.id.home:
 				finish();
 			default:

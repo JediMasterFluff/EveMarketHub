@@ -7,19 +7,19 @@
     tools:context="ca.prairesunapplications.evemarkethub.screens.ItemsList">
 
     <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listView" />
+        android:layout_height="match_parent" />
 
     <TextView
+        android:id="@+id/emptyElement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/emptyElement"
-        android:text="The list is empty"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:visibility="gone"
         android:layout_centerInParent="true"
-        android:textColor="@android:color/darker_gray" />
+        android:text="The list is empty"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </RelativeLayout>

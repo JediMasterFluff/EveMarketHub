@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -29,6 +28,7 @@ import ca.prairesunapplications.evemarkethub.database.EveMarketDatabaseHandler;
 import ca.prairesunapplications.evemarkethub.objects.Item;
 import ca.prairesunapplications.evemarkethub.objects.Station;
 import ca.prairesunapplications.evemarkethub.utils.SharedPreference;
+import xdroid.toaster.Toaster;
 
 public class ItemDetails extends BaseActivity {
 
@@ -141,7 +141,7 @@ public class ItemDetails extends BaseActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.details_toolbar_menu, menu);
 
-		MenuItem favItem = menu.getItem(id);
+		MenuItem favItem = menu.getItem(0);
 
 		if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES))
 			favItem.setIcon(R.drawable.ic_favourite);
@@ -157,24 +157,25 @@ public class ItemDetails extends BaseActivity {
 				// if yes, remove from favourite list and change icon to ic_unfavourite
 				// else, add to favourites list and change icon to ic_favourite
 				if(preference.isFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES)) { // if this item is already a fav
-					Log.e(LOG_HEADER, "Removing From Favs");
 					preference.removeFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class);
 					menuItem.setIcon(R.drawable.ic_unfavourite);
 				} else {
-					Log.e(LOG_HEADER, "Adding to Favs");
 					preference.addFavourite(this, item, SharedPreference.FAV_PREF_NAME, SharedPreference.ITEM_FAVOURITES, Item[].class);
 					menuItem.setIcon(R.drawable.ic_favourite);
 				}
 				return true;
 			case R.id.refresh_entry:
-
-			case android.R.id.home:
-				finish();
+				Toaster.toast("This will refresh only this one item");
+				refreshItem();
+				break;
 			default:
+				finish();
 
 		}
 		return true;
 	}
+
+	private void refreshItem() {}
 
 	private LineGraphSeries<DataPoint> getPricingHistory(int id) {
 		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(this);
@@ -187,5 +188,4 @@ public class ItemDetails extends BaseActivity {
 		}
 		return series;
 	}
-
 }

@@ -22,18 +22,23 @@ import ca.prairesunapplications.evemarkethub.R;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+	public static final String ITEM_ID = "Item ID";
+	public static final String STATION_ID = "Station ID";
+	public static final String LOG_HEADER = "EveMarketHub";
 	public DrawerLayout drawerLayout;
 	public Toolbar toolbar;
 	public ActionBarDrawerToggle toggle;
 	private NavigationView navigationView;
 
-	public static final String ITEM_ID = "Item ID";
-	public static final String STATION_ID = "Station ID";
-	public static final String LOG_HEADER = "EveMarketHub";
-
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public void setContentView(int layoutResID) {
+		super.setContentView(layoutResID);
+		onCreateDrawer();
 	}
 
 	protected void onCreateDrawer() {
@@ -52,9 +57,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	@Override
-	public void setContentView(int layoutResID) {
-		super.setContentView(layoutResID);
-		onCreateDrawer();
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		toggle.onConfigurationChanged(newConfig);
 	}
 
 	@Override
@@ -93,12 +98,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 	public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
 		super.onPostCreate(savedInstanceState, persistentState);
 		toggle.syncState();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		toggle.onConfigurationChanged(newConfig);
 	}
 
 }

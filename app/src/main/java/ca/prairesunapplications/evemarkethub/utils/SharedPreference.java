@@ -17,7 +17,6 @@ import xdroid.toaster.Toaster;
 
 /**
  * EveMarketHub SharedPreferences class to handle all operations to the preference for the app
- *
  * Created by fluffy on 21/11/17.
  */
 
@@ -104,7 +103,7 @@ public class SharedPreference {
 					}
 					return false;
 				} else return false;
-			}
+		}
 		return false;
 	}
 

@@ -57,8 +57,8 @@ public class FavStationAdapter extends RecyclerView.Adapter<FavStationAdapter.Vi
 	}
 
 	static class ViewHolder extends RecyclerView.ViewHolder {
-		Station st;
 		final CardView cv;
+		Station st;
 
 		ViewHolder(View view) {
 			super(view);
