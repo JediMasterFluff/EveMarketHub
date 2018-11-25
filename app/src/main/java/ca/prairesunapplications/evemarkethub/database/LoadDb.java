@@ -1,10 +1,12 @@
 package ca.prairesunapplications.evemarkethub.database;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.*;
+import com.loopj.android.http.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import ca.prairesunapplications.evemarkethub.utils.EveRestClient;
+import cz.msebera.android.httpclient.entity.mime.Header;
 
 /**
  * Created by fluffy on 18/11/17.
@@ -23,10 +28,18 @@ import java.net.URL;
 public class LoadDb {
 
 	private final Context myContext;
+	private Database mDb;
+	private ItemDAO mItemDao;
 
 	public LoadDb(Context context) {
 		this.myContext = context;
-		loadItems();
+		mDb = Room.inMemoryDatabaseBuilder(myContext, Database.class).build();
+		mItemDao = mDb.itemDAO();
+		try {
+			loadItems();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		//loadGroups();
 		//loadCategories();
 		//createCategoryGroups();
@@ -34,6 +47,43 @@ public class LoadDb {
 		//loadMarketPricing();
 	}
 
+
+	private void loadItems() throws JSONException {
+		EveRestClient.get("universe/type/?datasource=tranquility&page=1", null, new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+				super.onSuccess(statusCode, headers, response);
+			}
+
+			@Override
+			public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray items) {
+
+				for (int i = 0; i < items.length(); i++) {
+					try {
+						JSONObject object = items.getJSONObject(i);
+
+						Item item = new Item();
+						item.id = object.getInt("id");
+						item.description = object.getString("description");
+						item.price =  object.getDouble("price");
+						item.average_price = object.getDouble("average_price");
+						item.group_id = object.getInt("group_id");
+
+						mItemDao.addItem(item);
+
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					
+				}
+
+
+			}
+		});
+	}
+
+
+/*
 	private void loadItems() {
 		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
 		String json = getJson(buildRequestURL(1));
@@ -62,13 +112,13 @@ public class LoadDb {
 
 	}
 
-	/**
+	*
 	 * Builds the EVE api url based on what and where you want the data from
 	 *
 	 * @param i optional id of object we want details for
 	 *
 	 * @return finished constructed url string that matches the EVE API specs
-	 */
+	 *
 	private String buildRequestURL(int i) {
 
 		String url;
@@ -113,7 +163,7 @@ public class LoadDb {
 
 		return url;
 	}
-
+*/
 	private String getJson(String u) {
 
 		HttpURLConnection connection;
