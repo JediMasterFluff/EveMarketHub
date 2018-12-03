@@ -31,7 +31,7 @@ public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 	protected Integer doInBackground(String... strings) {
 		Log.i("EveMarketHub", "Starting task");
 		if(resourcesExist()) {
-			// downloadResources();
+			downloadResources();
 		}
 		return 1234;
 	}
@@ -53,8 +53,8 @@ public class LoadingTask extends AsyncTask<String, Integer, Integer> {
 	}
 
 	private void downloadResources() {
-		EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
-		handler.cleanSlate();
+		//EveMarketDatabaseHandler handler = new EveMarketDatabaseHandler(myContext);
+		//handler.cleanSlate();
 		new LoadDb(myContext);
 	}
 

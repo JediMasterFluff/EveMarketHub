@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="©CCP hf. All rights reserved. Used with permission."
+                android:text="@string/ccp_hf_all_rights_reserved_used_with_permission"
                 android:textColor="@color/colorBackground"
                 android:textSize="12sp" />
         </LinearLayout>

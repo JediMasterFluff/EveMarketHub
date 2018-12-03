@@ -4,11 +4,11 @@
     <item
         android:id="@+id/favourite_entry"
         android:icon="@drawable/ic_unfavourite"
-        android:title="Favourite"
+        android:title="@string/favourite"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/refresh_entry"
         android:icon="@drawable/ic_refresh_item"
-        android:title="Refresh"
+        android:title="@string/refresh"
         app:showAsAction="ifRoom" />
 </menu>

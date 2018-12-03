@@ -3,7 +3,7 @@ package ca.prairesunapplications.evemarkethub.utils;
 import com.loopj.android.http.*;
 
 public class EveRestClient {
-    private static final String BASE_URL = "https://esi.evetech.net/dev/";
+    private static final String BASE_URL = "https://esi.evetech.net/latest/";
 
     private static final AsyncHttpClient client = new AsyncHttpClient();
 

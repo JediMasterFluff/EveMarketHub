@@ -4,6 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "ca.prairesunapplications.evemarkethub"
+        testApplicationId "ca.test.foo"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -16,6 +17,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
 }
 
@@ -41,17 +45,16 @@ dependencies {
     implementation "com.android.support:gridlayout-v7:$android_version"
     implementation 'com.loopj.android:android-async-http:1.4.9'
 
-        implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    // optional - RxJava support for Room
+    implementation "android.arch.persistence.room:rxjava2:$room_version"
 
-        // optional - RxJava support for Room
-        implementation "android.arch.persistence.room:rxjava2:$room_version"
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "android.arch.persistence.room:guava:$room_version"
 
-        // optional - Guava support for Room, including Optional and ListenableFuture
-        implementation "android.arch.persistence.room:guava:$room_version"
+    // Test helpers
+    testImplementation "android.arch.persistence.room:testing:$room_version"
 
-        // Test helpers
-        testImplementation "android.arch.persistence.room:testing:$room_version"
-        testImplementation 'junit:junit:4.12'
-
-
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 }

@@ -4,9 +4,11 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import org.json.*;
-import com.loopj.android.http.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,9 +16,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import ca.prairesunapplications.evemarkethub.utils.EveRestClient;
-import cz.msebera.android.httpclient.entity.mime.Header;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by fluffy on 18/11/17.
@@ -30,10 +33,14 @@ public class LoadDb {
 	private final Context myContext;
 	private Database mDb;
 	private ItemDAO mItemDao;
+	private RequestParams params;
 
 	public LoadDb(Context context) {
 		this.myContext = context;
-		mDb = Room.inMemoryDatabaseBuilder(myContext, Database.class).build();
+		params = new RequestParams();
+		params.put("datasource","tranquility");
+		params.put("language", "en-us");
+		mDb = Room.databaseBuilder(myContext, Database.class,"EveDb-Room").build();
 		mItemDao = mDb.itemDAO();
 		try {
 			loadItems();
@@ -49,37 +56,98 @@ public class LoadDb {
 
 
 	private void loadItems() throws JSONException {
-		EveRestClient.get("universe/type/?datasource=tranquility&page=1", null, new JsonHttpResponseHandler(){
+		new Thread(new Runnable() {
 			@Override
-			public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
-				super.onSuccess(statusCode, headers, response);
-			}
+			public void run() {
+				EveRestClient.get("universe/types", params, new JsonHttpResponseHandler(){
 
-			@Override
-			public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray items) {
-
-				for (int i = 0; i < items.length(); i++) {
-					try {
-						JSONObject object = items.getJSONObject(i);
-
-						Item item = new Item();
-						item.id = object.getInt("id");
-						item.description = object.getString("description");
-						item.price =  object.getDouble("price");
-						item.average_price = object.getDouble("average_price");
-						item.group_id = object.getInt("group_id");
-
-						mItemDao.addItem(item);
-
-					} catch (JSONException e) {
-						e.printStackTrace();
+					@Override
+					public boolean getUseSynchronousMode() {
+						return false;
 					}
-					
+
+					@Override
+					public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+						super.onSuccess(statusCode, headers, response);
+					}
+
+					@Override
+					public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray items) {
+
+						for (int i = 0; i < items.length(); i++) {
+							try {
+								//JSONObject object = items.getJSONObject(i);
+
+                                DbItem item = new DbItem();
+								item.setId(items.getInt(i));
+								/*
+								item.setDescription(object.getString("description"));
+								item.setPrice(object.getDouble("price"));
+								item.setAverage_price(object.getDouble("average_price"));
+								item.setGroup_id(object.getInt("group_id"));
+								*/
+								mItemDao.addItem(item);
+
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+						super.onFailure(statusCode, headers, throwable, errorResponse);
+					}
+				});
+			}
+		}).start();
+		getItemDetails();
+	}
+
+	public void getItemDetails(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				List<DbItem> items = mItemDao.getAllItems();
+				int x = 0;
+				for (final DbItem item : items) {
+					if (x < 100) {
+
+						EveRestClient.get("universe/types/" + String.valueOf(item.getId()), params, new JsonHttpResponseHandler() {
+							@Override
+							public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+								DbItem temp = item;
+
+								try {
+									temp.setDescription(response.getString("description"));
+									temp.setName(response.getString("name"));
+									temp.setGroup_id(response.getInt("group_id"));
+									mItemDao.updateItem(temp);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+
+							}
+
+							@Override
+							public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+								super.onFailure(statusCode, headers, throwable, errorResponse);
+							}
+
+							// This ensures that this stays as an AsyncHttpCall
+							@Override
+							public boolean getUseSynchronousMode() {
+								return false;
+							}
+						});
+						x++;
+					}
+
 				}
 
-
 			}
-		});
+		}).start();
 	}
 
 
